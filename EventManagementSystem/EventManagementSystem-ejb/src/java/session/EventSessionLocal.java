@@ -4,6 +4,7 @@
  */
 package session;
 
+import entity.Event;
 import javax.ejb.Local;
 
 /**
@@ -12,5 +13,5 @@ import javax.ejb.Local;
  */
 @Local
 public interface EventSessionLocal {
-    
+    public void createEvent(Event e);
 }

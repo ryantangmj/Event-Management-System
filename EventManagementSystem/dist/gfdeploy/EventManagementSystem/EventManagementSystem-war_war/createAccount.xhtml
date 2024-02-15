@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Create Account</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            Name: <h:inputText
+                value="#{authenticationManagedBean.username}"/><br/>
+            Contact Details: <h:inputText
+                value="#{authenticationManagedBean.username}"/><br/>
+            Profile Photo: <h:inputText
+                value="#{authenticationManagedBean.username}"/><br/>
+            Email: <h:inputText
+                value="#{authenticationManagedBean.username}"/><br/>
+            Password: <p:password value="#{passwordView.password6}" 
+                                  toggleMask="true" redisplay="true"/><br/>
+            Retype-password: <p:password value="#{passwordView.password6}" 
+                                  toggleMask="true" redisplay="true"/><br/>
+            <h:commandButton value="Create Account"
+                             action="#{authenticationManagedBean.login}"/>
+        </h:form>
+    </h:body>
+</html>

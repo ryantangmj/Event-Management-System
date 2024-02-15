@@ -4,7 +4,10 @@
  */
 package session;
 
+import entity.Event;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -12,7 +15,11 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class EventSession implements EventSessionLocal {
+    @PersistenceContext(unitName = "EventManagementSystem-ejbPU")
+    private EntityManager em;
 
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    @Override
+    public void createEvent(Event e) {
+        em.persist(e);
+    }
 }

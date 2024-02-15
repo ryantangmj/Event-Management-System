@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -17,15 +19,17 @@ import javax.persistence.Id;
  */
 @Entity
 public class Event implements Serializable {
-
     private static final long serialVersionUID = 1L;
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Temporal(TemporalType.DATE)
     private Date date;
     private String location;
     private String description;
+    @Temporal(TemporalType.DATE)
     private Date deadline;
     private boolean active;
 
