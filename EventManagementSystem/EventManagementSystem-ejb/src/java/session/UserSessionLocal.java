@@ -18,4 +18,6 @@ public interface UserSessionLocal {
     public User getUser(Long id);
     
     public void updateUser(User u);
+    
+    public boolean authenticateUser(String email, String password);
 }

@@ -7,7 +7,9 @@ package session;
 import entity.User;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -35,5 +37,20 @@ public class UserSession implements UserSessionLocal {
         oldU.setName(u.getName());
         oldU.setContactDetails(u.getContactDetails());
         oldU.setEmail(u.getEmail());
+    }
+    
+    @Override 
+    public boolean authenticateUser(String email, String password) {
+        Query q;
+        
+        try {
+            q = em.createQuery("SELECT user FROM User user WHERE LOWER(user.email) LIKE :email AND LOWER(user.password) LIKE :password");
+            q.setParameter("email", email);
+            q.setParameter("password", password);
+            User user = (User) q.getSingleResult();
+            return true;
+        } catch (NoResultException e) {
+            return false;
+        }
     }
 }
