@@ -16,13 +16,12 @@
                 value="#{accountManagedBean.contactDetails}"/><br/>
             Email: <h:inputText
                 value="#{accountManagedBean.email}"/><br/>
-            Password: <p:password value="#{accountManagedBean.password}" 
+            Password: <p:password value="#{accountManagedBean.password}"
                                   toggleMask="true" redisplay="true"/><br/>
-            Retype-password: <p:password
+            Retype-password: <p:password value="#{accountManagedBean.validatePassword}"
                                   toggleMask="true" redisplay="true"/><br/>
-            <h:commandButton value="Create Account"
-                             actionListener="#{accountManagedBean.createAccount}"
-                             action="login.xhtml?faces-redirect=true"/>
+            <p:messages showDetail="true" closable="true"/>
+            <h:commandButton value="Create Account" action="#{accountManagedBean.validateAndCreateAccount}" />   
         </h:form>
     </h:body>
 </html>
