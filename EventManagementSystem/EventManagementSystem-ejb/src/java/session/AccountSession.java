@@ -21,8 +21,8 @@ public class AccountSession implements AccountSessionLocal {
     private EntityManager em;
     
     @Override
-    public void createAccount(Account u) {
-        em.persist(u);
+    public void createAccount(Account a) {
+        em.persist(a);
     }
     
     @Override
@@ -44,11 +44,11 @@ public class AccountSession implements AccountSessionLocal {
         Query q;
         
         try {
-            q = em.createQuery("SELECT u FROM User u WHERE LOWER(u.email) =:email AND LOWER(u.password) =:password");
+            q = em.createQuery("SELECT a FROM Account a WHERE LOWER(a.email) =:email AND LOWER(a.password) =:password");
             q.setParameter("email", email);
             q.setParameter("password", password);
             Account user = (Account) q.getSingleResult();
-            return user == null ? false : true;
+            return true;
         } catch (NoResultException e) {
             return false;
         }
@@ -57,7 +57,7 @@ public class AccountSession implements AccountSessionLocal {
     @Override
     public Long getAccount(String email, String password) {
         Query q;
-        q = em.createQuery("SELECT u FROM User u WHERE LOWER(u.email) LIKE :email AND LOWER(u.password) LIKE :password");
+        q = em.createQuery("SELECT a FROM Account a WHERE LOWER(a.email) LIKE :email AND LOWER(a.password) LIKE :password");
         q.setParameter("email", email);
         q.setParameter("password", password);
         Account user = (Account) q.getSingleResult();

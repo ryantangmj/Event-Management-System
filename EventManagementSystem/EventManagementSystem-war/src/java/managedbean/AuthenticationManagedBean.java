@@ -7,6 +7,7 @@ package managedbean;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import javax.ejb.EJB;
 import session.AccountSessionLocal;
 
 /**
@@ -16,7 +17,10 @@ import session.AccountSessionLocal;
 @Named(value = "authenticationManagedBean")
 @SessionScoped
 public class AuthenticationManagedBean implements Serializable {
-    private String username = null;
+    @EJB
+    private AccountSessionLocal accountSession;
+    
+    private String email = null;
     private String password = null;
     private Long userId = -1l;
 
@@ -64,8 +68,8 @@ public class AuthenticationManagedBean implements Serializable {
      *
      * @return the value of username
      */
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
     /**
@@ -73,12 +77,10 @@ public class AuthenticationManagedBean implements Serializable {
      *
      * @param username new value of username
      */
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    
-    private AccountSessionLocal accountSession;
     /**
      * Creates a new instance of AuthenticationManagedBean
      */
@@ -86,19 +88,11 @@ public class AuthenticationManagedBean implements Serializable {
     }
     
     public String login() {
-        //by right supposed to use a session bean to
-        //do validation here
-        //...
-        //simulate username/password
-        if (accountSession.authenticateAccount(username, password)) {
-            //login successful
-            //store the logged in user id
-            userId = accountSession.getAccount(username, password);
-            //do redirect
-            return "/secret/secret.xhtml?faces-redirect=true";
+        if (accountSession.authenticateAccount(email, password)) {
+            userId = accountSession.getAccount(email, password);
+            return "/index.xhtml?faces-redirect=true";
         } else {
-            //login failed
-            username = null;
+            email = null;
             password = null;
             userId = -1l;
             return "login.xhtml";
@@ -106,7 +100,7 @@ public class AuthenticationManagedBean implements Serializable {
     }
 
     public String logout() {
-        username = null;
+        email = null;
         password = null;
         userId = -1l;
         return "/login.xhtml?faces-redirect=true";

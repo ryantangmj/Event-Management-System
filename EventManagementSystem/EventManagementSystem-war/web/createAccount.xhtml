@@ -11,19 +11,18 @@
     <h:body>
         <h:form>
             Name: <h:inputText
-                value="#{authenticationManagedBean.username}"/><br/>
+                value="#{accountManagedBean.name}"/><br/>
             Contact Details: <h:inputText
-                value="#{authenticationManagedBean.username}"/><br/>
-            Profile Photo: <h:inputText
-                value="#{authenticationManagedBean.username}"/><br/>
+                value="#{accountManagedBean.contactDetails}"/><br/>
             Email: <h:inputText
-                value="#{authenticationManagedBean.username}"/><br/>
-            Password: <p:password value="#{passwordView.password6}" 
+                value="#{accountManagedBean.email}"/><br/>
+            Password: <p:password value="#{accountManagedBean.password}" 
                                   toggleMask="true" redisplay="true"/><br/>
-            Retype-password: <p:password value="#{passwordView.password6}" 
+            Retype-password: <p:password
                                   toggleMask="true" redisplay="true"/><br/>
             <h:commandButton value="Create Account"
-                             action="#{authenticationManagedBean.login}"/>
+                             actionListener="#{accountManagedBean.createAccount}"
+                             action="login.xhtml?faces-redirect=true"/>
         </h:form>
     </h:body>
 </html>
