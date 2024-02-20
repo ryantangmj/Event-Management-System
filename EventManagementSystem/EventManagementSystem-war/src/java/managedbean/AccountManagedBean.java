@@ -29,6 +29,25 @@ public class AccountManagedBean implements Serializable {
     private String email;
     private String password;
     private String validatePassword;
+    private String error;
+
+    /**
+     * Get the value of error
+     *
+     * @return the value of error
+     */
+    public String getError() {
+        return error;
+    }
+
+    /**
+     * Set the value of error
+     *
+     * @param error new value of error
+     */
+    public void setError(String error) {
+        this.error = error;
+    }
 
     /**
      * Get the value of validatePassword
@@ -96,15 +115,16 @@ public class AccountManagedBean implements Serializable {
         accountSession.createAccount(account);
     }
 
-    public String validateAndCreateAccount() {
-        if (password == null || !password.equals(validatePassword)) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Password mismatch", "The passwords do not match."));
-            return null; // Stay on the page due to validation failure
-        } else {
-            createAccount();
-            return "login.xhtml?faces-redirect=true"; // Navigate on success
-        }
-    }
-
+//    public String validateAndCreateAccount() {
+//        if (password == null || !password.equals(validatePassword)) {
+//            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Passwords do not match", "passwordMismatch");
+//            FacesContext.getCurrentInstance().addMessage(null, message);
+////            return null; // Stay on the page due to validation failure
+//        } else {
+//            createAccount();
+//            return "login.xhtml?faces-redirect=true"; // Navigate on success
+//        }
+//        
+//        return null;
+//    }
 }
