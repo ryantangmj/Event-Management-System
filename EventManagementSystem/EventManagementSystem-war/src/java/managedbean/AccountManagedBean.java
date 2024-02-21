@@ -105,7 +105,7 @@ public class AccountManagedBean implements Serializable {
     public AccountManagedBean() {
     }
 
-    public void createAccount() {
+    public String createAccount() {
         Account account = new Account();
         account.setName(name);
         account.setContactDetails(contactDetails);
@@ -113,6 +113,7 @@ public class AccountManagedBean implements Serializable {
         account.setPassword(password);
 
         accountSession.createAccount(account);
+        return "index.xhtml?faces-redirect=true";
     }
 
 //    public String validateAndCreateAccount() {
@@ -122,7 +123,7 @@ public class AccountManagedBean implements Serializable {
 ////            return null; // Stay on the page due to validation failure
 //        } else {
 //            createAccount();
-//            return "login.xhtml?faces-redirect=true"; // Navigate on success
+//             // Navigate on success
 //        }
 //        
 //        return null;
