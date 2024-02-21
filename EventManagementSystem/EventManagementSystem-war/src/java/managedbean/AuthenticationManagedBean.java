@@ -95,7 +95,7 @@ public class AuthenticationManagedBean implements Serializable {
             email = null;
             password = null;
             userId = -1l;
-            return "login.xhtml";
+            return "index.xhtml";
         }
     }
 
@@ -103,7 +103,7 @@ public class AuthenticationManagedBean implements Serializable {
         email = null;
         password = null;
         userId = -1l;
-        return "/login.xhtml?faces-redirect=true";
+        return "/index.xhtml?faces-redirect=true";
     }
     
 }
