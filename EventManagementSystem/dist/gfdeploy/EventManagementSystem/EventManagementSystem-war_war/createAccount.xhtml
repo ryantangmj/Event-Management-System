@@ -15,15 +15,15 @@
         <h:form style="margin-top: 36px;">
             <h:panelGrid id="details">
                 <p:growl id="growl" showDetail="true" sticky="true" for="growl"/>  
-                Name: <p:inputText id="name"
+                Name: <p:inputText id="name" style='width: 100%'
                                    value="#{accountManagedBean.name}" required="true" 
                                    requiredMessage="Name is required."/>
                 <p:message for="name" />
-                Phone Number: <p:inputText id="phone"
+                Phone Number: <p:inputText id="phone" style='width: 100%'
                                            value="#{accountManagedBean.contactDetails}" required="true" 
                                            requiredMessage="Phone number is required."/>
                 <p:message for="phone" />
-                Email: <p:inputText id="email"
+                Email: <p:inputText id="email" style='width: 100%'
                                     value="#{accountManagedBean.email}" required="true" 
                                     requiredMessage="Email is required."/>
                 <p:message for="email" />

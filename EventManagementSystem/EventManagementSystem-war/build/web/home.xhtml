@@ -11,54 +11,47 @@
     <ui:define name="content">
         <h1>Welcome back, #{authenticationManagedBean.getName()}</h1><br />
         <subtitle>You can now register for events below.</subtitle>
-        <!--        <h:form>
-                    <div style="text-align:center; margin-top: 100px;">
-                        <p:button outcome="register.xhtml" value="Register New Member"
-                                  style="height:300px; width:240px; margin-left: 16px; margin-right: 16px; border-radius:20px;
-                                  font-size:24px; background-color:#6f4d8e; color:white; text-shadow:none; vertical-align:top;" />            
-                        <p:commandButton onclick="PF('lendDlg').show();" value="Lend Book"
-                                         style="height:300px; width:240px; margin-left: 16px; margin-right: 16px; border-radius:20px;
-                                         font-size:24px; background-color:#6f4d8e; color:white; text-shadow:none" />
-                        <p:commandButton onclick="PF('returnDlg').show();" value="Return Book"
-                                         style="height:300px; width:240px; margin-left: 16px; margin-right: 16px; border-radius:20px;
-                                         font-size:24px; background-color:#6f4d8e; color:white; text-shadow:none" />
-                    </div>
-                    <p:growl id="growl" showDetail="true" sticky="true" for="growl"/>  
-                    <p:dialog header="Enter Member ID" widgetVar="lendDlg" resizable="false">
-                        <br />
-                        <h2>ID Number</h2>
-                        <span class="ui-float-label">
-                            <p:inputText required="true"
-                                         value="#{memberManagedBean.idNo}" placeholder="Enter NRIC / FIN number"
-                                         style="font-size:20px; width:100%; font-family: 'DM Sans';"/>
-                        </span> <br />
-                        <p:commandButton value="Continue"
-                                         actionListener="#{memberManagedBean.retrieveMemberByIdentityNo}"
-                                         action="#{memberManagedBean.nextLend()}"
-                                         update="@form"
-                                         style="font-size:16px; margin-top: 20px; background-color:#6f4d8e; background-image:none; color:white; text-shadow:none; text-align: center;
-                                         height:40px; float: right;"/>
-                    </p:dialog> 
-        
-                </h:form>
-                <h:form>
-                    <p:growl id="growl" showDetail="true" sticky="true" for="growl"/>  
-                    <p:dialog header="Enter Member ID" widgetVar="returnDlg" resizable="false">
-                        <br />
-                        <h2>ID Number</h2>
-                        <span class="ui-float-label">
-                            <p:inputText required="true"
-                                         value="#{memberManagedBean.idNo}" placeholder="Enter NRIC / FIN number"
-                                         style="font-size:20px; width:100%; font-family: 'DM Sans';"/>
-                        </span> <br />
-                        <p:commandButton value="Continue"
-                                         actionListener="#{memberManagedBean.retrieveMemberByIdentityNo}"
-                                         action="#{memberManagedBean.nextReturn()}"
-                                         update="@form"
-                                         style="font-size:16px; margin-top: 20px; background-color:#6f4d8e; background-image:none; color:white; text-shadow:none; text-align: center;
-                                         height:40px; float: right;"/>
-                    </p:dialog>       
-                </h:form>-->
+        <h:form id="form">
+            <p:dataTable id="tableState" var="events" value="#{eventsManagedBean.events}"
+                         widgetVar="eventsTable" multiViewState="true" rows="10" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" selectionMode="single"
+                         selection="#{dtMultiViewStateView.selectedEvent}" rowKey="#{event.id}"
+                         emptyMessage="No events found with given criteria"
+                         filteredValue="#{dtMultiViewStateView.filteredEvents}" style="padding-top: 10px">
+
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Search all fields:"/>
+                        <p:inputText id="globalFilter" onkeyup="PF('eventsTable').filter()" style="width:150px"
+                                     placeholder="Enter keyword"/>
+                    </p:outputPanel>
+                </f:facet>
+
+                <!--            <p:ajax event="rowSelect" update=":form:eventDetail" oncomplete="PF('eventDialog').show()"/>-->
+
+                <p:column headerText="Title" filterBy="#{event.title}" sortBy="#{event.title}"
+                          filterMatchMode="contains">
+                    <h:outputText value="#{event.title}"/>
+                </p:column>
+                <p:column headerText="Location" filterBy="#{event.location}" sortBy="#{event.location}"
+                          filterMatchMode="startsWith">
+                    <span class="flag flag-#{event.location}" style="width: 30px; height: 20px"/>
+                    <h:outputText style="vertical-align: middle; margin-left: .5rem"
+                                  value="#{event.location}"/>
+                </p:column>
+
+                <p:column headerText="Date" filterBy="#{event.date}"
+                          sortBy="#{event.date}" filterMatchMode="between">
+                    <h:outputText style="vertical-align: middle; margin-left: .5rem"
+                                  value="#{event.date}"/>
+                </p:column>
+<!--                <f:facet name="paginatorTopLeft">
+                    <p:commandButton value="Clear table state" action="#{dtMultiViewStateView.clearMultiViewState}"
+                                     update="@form"/>
+                </f:facet>-->
+            </p:dataTable>
+        </h:form>
     </ui:define>
     <ui:define name="image">
         <img style="width:160px;  position:relative; margin-top:15%;"
