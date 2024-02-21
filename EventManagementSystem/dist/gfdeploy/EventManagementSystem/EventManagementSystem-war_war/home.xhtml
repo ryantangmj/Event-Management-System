@@ -9,7 +9,7 @@
         Event Genesis
     </ui:define>
     <ui:define name="content">
-        <h1>Welcome back, #{authenticationManagedBean.getName()}.</h1><br />
+        <h1>Welcome back, #{authenticationManagedBean.getName()}</h1><br />
         <subtitle>You can now register for events below.</subtitle>
         <!--        <h:form>
                     <div style="text-align:center; margin-top: 100px;">
@@ -61,8 +61,8 @@
                 </h:form>-->
     </ui:define>
     <ui:define name="image">
-        <img style="width:160px; position: absolute; bottom: 45%"
-             src="resources/images/logo.png" alt="home"/>
+        <img style="width:160px;  position:relative; margin-top:15%;"
+             src="resources/images/home.png" alt="home"/>
     </ui:define>
     <ui:define name="button">
         <h:form>
@@ -76,7 +76,7 @@
     <ui:define name="nextPage">
         <h:form>
             <p:commandButton value="My events" icon="pi pi-list" ajax="false"
-                             action="#{authenticationManagedBean.logout}" 
+                             action="events.xhtml?faces-redirect=true"
                              style="font-size:16px; color:white; box-shadow:none;
                              background-color:#1232A6;"/>
 
@@ -84,8 +84,8 @@
     </ui:define>
     <ui:define name="logo">
         <img style="display:inline;height: 38px;width:48px;padding-right:12px;"
-             src="resources/images/home.png" alt="home"
-             onerror="this.src='resources/images/home.png'"/>
+             src="resources/images/logo.png" alt="logo"
+             onerror="this.src='resources/imageslogo.png'"/>
         <h1 style="display:inline;color:#FFFFFF;
             border-bottom:0px">Event Genesis</h1>
     </ui:define>

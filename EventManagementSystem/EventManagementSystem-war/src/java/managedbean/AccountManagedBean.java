@@ -115,17 +115,4 @@ public class AccountManagedBean implements Serializable {
         accountSession.createAccount(account);
         return "index.xhtml?faces-redirect=true";
     }
-
-//    public String validateAndCreateAccount() {
-//        if (password == null || !password.equals(validatePassword)) {
-//            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Passwords do not match", "passwordMismatch");
-//            FacesContext.getCurrentInstance().addMessage(null, message);
-////            return null; // Stay on the page due to validation failure
-//        } else {
-//            createAccount();
-//             // Navigate on success
-//        }
-//        
-//        return null;
-//    }
 }
