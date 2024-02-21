@@ -17,6 +17,8 @@ public interface AccountSessionLocal {
     
     public Account getAccount(Long id);
     
+    public String getName(Long id);
+    
     public Long getAccount(String email, String password);
     
     public void updateAccount(Account u);

@@ -90,7 +90,7 @@ public class AuthenticationManagedBean implements Serializable {
     public String login() {
         if (accountSession.authenticateAccount(email, password)) {
             userId = accountSession.getAccount(email, password);
-            return "/index.xhtml?faces-redirect=true";
+            return "/home.xhtml?faces-redirect=true";
         } else {
             email = null;
             password = null;
@@ -106,4 +106,7 @@ public class AuthenticationManagedBean implements Serializable {
         return "/index.xhtml?faces-redirect=true";
     }
     
+    public String getName() {
+        return accountSession.getName(userId);
+    }
 }

@@ -30,6 +30,12 @@ public class AccountSession implements AccountSessionLocal {
         return em.find(Account.class, id);
     }
     
+    @Override 
+    public String getName(Long id) {
+        Account account = em.find(Account.class, id);
+        return account.getName();
+    }
+    
     @Override
     public void updateAccount(Account u) {
         Account oldU = getAccount(u.getId());
