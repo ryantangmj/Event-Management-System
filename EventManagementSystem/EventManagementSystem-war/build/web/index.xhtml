@@ -18,11 +18,14 @@
             </span>
             <h2>Password</h2>
             <span class="ui-float-label">
-                <p:password id="password" value="#{authenticationManagedBean.password}" style="font-size:20px; width:100%"/>
+                <p:password id="password" value="#{authenticationManagedBean.password}" style="font-size:20px; width:100%; margin-bottom: 12px"/>
             </span>
+            <a href="createAccount.xhtml" style="font-size:15px; width:100%; font-family: 'DM Sans'; color: #1232A6;">
+                New? Sign up for an account now!
+            </a>
             <p:commandButton value="Login" icon="pi pi-sign-in" ajax="false"
                              action="#{authenticationManagedBean.login}"
-                             style="font-size:16px; margin-top: 20px; background-color:#6f4d8e; color:white; text-shadow:none; text-align: center;
+                             style="font-size:16px; margin-top: 30px; background-color:#6f4d8e; color:white; text-shadow:none; text-align: center;
                              height:40px; float:right"/>
         </h:form> 
     </ui:define>
