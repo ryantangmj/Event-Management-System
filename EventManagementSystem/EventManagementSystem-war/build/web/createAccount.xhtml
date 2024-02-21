@@ -30,10 +30,13 @@
                 Password: <p:password id="pwd1" value="#{accountManagedBean.password}"
                                       toggleMask="true" redisplay="true" match="pwd2" 
                                       label="Password 1" required="true"
-                                      />
+                                      /><br/>
                 Retype-password: <p:password id="pwd2" value="#{accountManagedBean.validatePassword}"
                                              toggleMask="true" redisplay="true" label="Password 2" required="true"/>
                 <p:message for="pwd1" />  
+                <a href="index.xhtml" style="margin: 2px; font-size:15px; width:100%; font-family: 'DM Sans'; color: #1232A6;">
+                    Have an account? Log in!
+                </a>
             </h:panelGrid>
             <p:commandButton value="Create Account" 
                              action="#{accountManagedBean.createAccount}" 
@@ -49,7 +52,7 @@
              src="resources/images/logo.png" alt="logo"/>
     </ui:define>
     <ui:define name="logo">
-        <img style="display:inline;height:45px;width:45px;padding-right:12px;"
+        <img style="display:inline;width:50px;padding-right:12px;"
              src="resources/images/register.png" alt="register"
              onerror="this.src='/resources/images/register.png'"/>
         <h1 style="display:inline;color:#FFFFFF;
