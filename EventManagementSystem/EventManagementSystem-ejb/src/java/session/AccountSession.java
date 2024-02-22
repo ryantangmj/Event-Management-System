@@ -49,6 +49,8 @@ public class AccountSession implements AccountSessionLocal {
         oldU.setName(u.getName());
         oldU.setContactDetails(u.getContactDetails());
         oldU.setEmail(u.getEmail());
+        oldU.setPassword(u.getPassword());
+        
     }
     
     @Override 

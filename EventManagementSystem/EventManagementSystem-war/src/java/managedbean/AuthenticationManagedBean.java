@@ -111,4 +111,9 @@ public class AuthenticationManagedBean implements Serializable {
     public String getContactDetails() {
         return accountSession.getContactDetails(userId);
     }
+    
+    public String navigateToProfile() {
+        // Assuming accountId is already set in this bean
+        return "/profile.xhtml?faces-redirect=true&accountId=" + userId;
+    }
 }

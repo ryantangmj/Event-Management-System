@@ -8,10 +8,10 @@ import entity.Account;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import java.io.Serializable;
+import javafx.event.ActionEvent;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import static org.primefaces.component.focus.FocusBase.PropertyKeys.context;
 import session.AccountSessionLocal;
 
 /**
@@ -24,12 +24,51 @@ public class AccountManagedBean implements Serializable {
 
     @EJB
     private AccountSessionLocal accountSession;
+
+    private Long accountId;
+    private Account account;
     private String name;
     private String contactDetails;
     private String email;
     private String password;
     private String validatePassword;
     private String error;
+
+    /**
+     * Get the value of account
+     *
+     * @return the value of account
+     */
+    public Account getAccount() {
+        return account;
+    }
+
+    /**
+     * Set the value of account
+     *
+     * @param account new value of account
+     */
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    /**
+     * Get the value of accountId
+     *
+     * @return the value of accountId
+     */
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    /**
+     * Set the value of accountId
+     *
+     * @param accountId new value of accountId
+     */
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
+    }
 
     /**
      * Get the value of error
@@ -105,6 +144,35 @@ public class AccountManagedBean implements Serializable {
     public AccountManagedBean() {
     }
 
+    public void loadSelectedCustomer() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            this.account = accountSession.getAccount(accountId);
+            name = this.account.getName();
+            contactDetails = this.account.getContactDetails();
+            email = this.account.getEmail();
+            password = this.account.getPassword();
+            validatePassword = password;
+        } catch (Exception e) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to load account"));
+        }
+    }
+    
+    public void editAccount() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        account.setName(name);
+        account.setContactDetails(contactDetails);
+        account.setEmail(email);
+        account.setPassword(password);
+
+        try {
+            accountSession.updateAccount(account);
+            context.addMessage(null, new FacesMessage("Success", "Successfully updated details"));
+        } catch (Exception e) {
+            context.addMessage(null, new FacesMessage("Error", "Failed to update account details"));
+        }
+    }
+
     public String createAccount() {
         Account account = new Account();
         account.setName(name);
@@ -114,18 +182,5 @@ public class AccountManagedBean implements Serializable {
 
         accountSession.createAccount(account);
         return "index.xhtml?faces-redirect=true";
-    }
-    
-    public void editAccount(Long id) {
-        FacesContext context = FacesContext.getCurrentInstance();
-        Account account = accountSession.getAccount(id);
-        account.setName(name);
-        account.setContactDetails(contactDetails);
-        account.setEmail(email);
-        account.setPassword(password);
-
-        accountSession.updateAccount(account);
-        context.addMessage(null, new FacesMessage("Success", "Successfully updated details"));
-        return;
     }
 }
