@@ -5,11 +5,15 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -31,24 +35,36 @@ public class Event implements Serializable {
     private String description;
     @Temporal(TemporalType.DATE)
     private Date deadline;
-    private boolean active;
-
+    @OneToOne
+    private Account organiser;
+    @OneToMany
+    private List<Account> participants = new ArrayList<Account>();
+    
     /**
-     * Get the value of active
+     * Get the value of organiser
      *
-     * @return the value of active
+     * @return the value of organiser
      */
-    public boolean isActive() {
-        return active;
+    public Account getOrganiser() {
+        return organiser;
     }
 
     /**
-     * Set the value of active
+     * Set the value of organiser
      *
-     * @param active new value of active
+     * @param organiser new value of organiser
      */
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setOrganiser(Account organiser) {
+        this.organiser = organiser;
+    }
+
+
+    public List<Account> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<Account> participants) {
+        this.participants = participants;
     }
 
     /**

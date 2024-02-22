@@ -4,9 +4,11 @@
  */
 package session;
 
+import entity.Account;
 import entity.Event;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,10 +23,13 @@ public class EventSession implements EventSessionLocal {
 
     @PersistenceContext(unitName = "EventManagementSystem-ejbPU")
     private EntityManager em;
+    @EJB
+    private AccountSessionLocal accountSession;
 
     @Override
-    public void createEvent(Event e) {
+    public void createEvent(Account a, Event e) {
         em.persist(e);
+        accountSession.addNewEvent(a, e);
     }
 
     @Override

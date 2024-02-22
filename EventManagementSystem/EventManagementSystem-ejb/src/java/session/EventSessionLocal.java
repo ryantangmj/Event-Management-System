@@ -4,6 +4,7 @@
  */
 package session;
 
+import entity.Account;
 import entity.Event;
 import java.util.List;
 import javax.ejb.Local;
@@ -14,7 +15,7 @@ import javax.ejb.Local;
  */
 @Local
 public interface EventSessionLocal {
-    public void createEvent(Event e);
+    public void createEvent(Account a, Event e);
     
     public List<Event> getAllEvents();
 }

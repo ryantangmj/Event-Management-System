@@ -113,7 +113,10 @@ public class AuthenticationManagedBean implements Serializable {
     }
     
     public String navigateToProfile() {
-        // Assuming accountId is already set in this bean
         return "/profile.xhtml?faces-redirect=true&accountId=" + userId;
+    }
+    
+    public String navigateToCreateEvent() {
+        return "/createEvent.xhtml?faces-redirect=true&accountId=" + userId;
     }
 }

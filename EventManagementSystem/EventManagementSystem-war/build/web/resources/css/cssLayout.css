@@ -33,7 +33,7 @@
     float: right;
     background-color: #ece3a5;
     padding: 5px;
-    width: 150px;
+    width: 100%;
 }
 
 .center_content {
@@ -92,6 +92,10 @@
     background-image: none !important;
     background-color: white !important;
     border: none;
+}
+
+.ui-inputfield {
+    width: 100%;
 }
 
 .ui-datatable-header{

@@ -5,6 +5,8 @@
 package session;
 
 import entity.Account;
+import entity.Event;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -77,5 +79,19 @@ public class AccountSession implements AccountSessionLocal {
         Account user = (Account) q.getSingleResult();
         
         return user.getId();
+    }
+
+    @Override
+    public void addNewEvent(Account a, Event e) {
+        List<Event> organisedEvents = a.getOrganisedEvents();
+        organisedEvents.add(e);
+        a.setOrganisedEvents(organisedEvents);  
+    }
+
+    @Override
+    public void joinNewEvent(Account a, Event e) {
+        List<Event> joinedEvents = a.getJoinedEvents();
+        joinedEvents.add(e);
+        a.setJoinedEvents(joinedEvents);  
     }
 }

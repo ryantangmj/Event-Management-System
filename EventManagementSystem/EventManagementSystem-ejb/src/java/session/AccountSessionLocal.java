@@ -5,6 +5,7 @@
 package session;
 
 import entity.Account;
+import entity.Event;
 import javax.ejb.Local;
 
 /**
@@ -26,4 +27,8 @@ public interface AccountSessionLocal {
     public void updateAccount(Account u);
     
     public boolean authenticateAccount(String email, String password);
+    
+    public void addNewEvent(Account a, Event e);
+    
+    public void joinNewEvent(Account a, Event e);
 }

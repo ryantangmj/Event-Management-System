@@ -5,10 +5,13 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -25,7 +28,11 @@ public class Account implements Serializable {
     private String contactDetails;
     private String email;
     private String password;
-
+    @OneToMany
+    private List<Event> organisedEvents = new ArrayList<Event>();
+    @OneToMany
+    private List<Event> joinedEvents = new ArrayList<Event>();
+    
     /**
      * Get the value of password
      *
@@ -34,6 +41,33 @@ public class Account implements Serializable {
     public String getPassword() {
         return password;
     }
+
+    public List<Event> getJoinedEvents() {
+        return joinedEvents;
+    }
+
+    public void setJoinedEvents(List<Event> joinedEvents) {
+        this.joinedEvents = joinedEvents;
+    }
+    
+    /**
+     * Get the value of organisedEvents
+     *
+     * @return the value of organisedEvents
+     */
+    public List<Event> getOrganisedEvents() {
+        return organisedEvents;
+    }
+
+    /**
+     * Set the value of organisedEvents
+     *
+     * @param organisedEvents new value of organisedEvents
+     */
+    public void setOrganisedEvents(List<Event> organisedEvents) {
+        this.organisedEvents = organisedEvents;
+    }
+
 
     /**
      * Set the value of password

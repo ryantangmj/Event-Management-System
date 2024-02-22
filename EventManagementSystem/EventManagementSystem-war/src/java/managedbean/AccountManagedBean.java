@@ -5,10 +5,11 @@
 package managedbean;
 
 import entity.Account;
+import entity.Event;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import java.io.Serializable;
-import javafx.event.ActionEvent;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -33,6 +34,44 @@ public class AccountManagedBean implements Serializable {
     private String password;
     private String validatePassword;
     private String error;
+    private List<Event> organisedEvents;
+    private List<Event> joinedEvents;
+
+    /**
+     * Get the value of joinedEvents
+     *
+     * @return the value of joinedEvents
+     */
+    public List<Event> getJoinedEvents() {
+        return joinedEvents;
+    }
+
+    /**
+     * Set the value of joinedEvents
+     *
+     * @param joinedEvents new value of joinedEvents
+     */
+    public void setJoinedEvents(List<Event> joinedEvents) {
+        this.joinedEvents = joinedEvents;
+    }
+
+    /**
+     * Get the value of organisedEvents
+     *
+     * @return the value of organisedEvents
+     */
+    public List<Event> getOrganisedEvents() {
+        return organisedEvents;
+    }
+
+    /**
+     * Set the value of organisedEvents
+     *
+     * @param organisedEvents new value of organisedEvents
+     */
+    public void setOrganisedEvents(List<Event> organisedEvents) {
+        this.organisedEvents = organisedEvents;
+    }
 
     /**
      * Get the value of account
