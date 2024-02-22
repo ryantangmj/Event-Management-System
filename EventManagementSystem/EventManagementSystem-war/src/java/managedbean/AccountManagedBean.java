@@ -11,7 +11,7 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
+import static org.primefaces.component.focus.FocusBase.PropertyKeys.context;
 import session.AccountSessionLocal;
 
 /**
@@ -114,5 +114,18 @@ public class AccountManagedBean implements Serializable {
 
         accountSession.createAccount(account);
         return "index.xhtml?faces-redirect=true";
+    }
+    
+    public void editAccount(Long id) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Account account = accountSession.getAccount(id);
+        account.setName(name);
+        account.setContactDetails(contactDetails);
+        account.setEmail(email);
+        account.setPassword(password);
+
+        accountSession.updateAccount(account);
+        context.addMessage(null, new FacesMessage("Success", "Successfully updated details"));
+        return;
     }
 }

@@ -61,8 +61,6 @@ public class AuthenticationManagedBean implements Serializable {
         this.password = password;
     }
 
-    
-
     /**
      * Get the value of username
      *
@@ -108,5 +106,9 @@ public class AuthenticationManagedBean implements Serializable {
     
     public String getName() {
         return accountSession.getName(userId);
+    }
+    
+    public String getContactDetails() {
+        return accountSession.getContactDetails(userId);
     }
 }

@@ -37,6 +37,12 @@ public class AccountSession implements AccountSessionLocal {
     }
     
     @Override
+    public String getContactDetails(Long id) {
+        Account account = em.find(Account.class, id);
+        return account.getContactDetails();
+    }
+    
+    @Override
     public void updateAccount(Account u) {
         Account oldU = getAccount(u.getId());
 

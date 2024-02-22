@@ -76,7 +76,7 @@
     background-color: #1232A6;
 }
 
-.inline { 
+.inline {
     width: 100%;
     display: flex;
     flex-flow: row wrap;
@@ -95,11 +95,11 @@
 }
 
 .ui-datatable-header{
-    background: blue;
-} 
+    background-color: #1232A6;
+}
 
 th {
-    background-color: #193C71 !important;
+    background-color: #1232A6 !important;
     background-image: none !important;
     color: white !important;
     text-shadow: none !important;
@@ -112,7 +112,7 @@ th {
 }
 
 .ui-datatable tr.ui-datatable-even:hover, .ui-datatable tr.ui-datatable-odd:hover {
-    background: #d8d8d8;
+    background: #1232A6;
 }
 .ui-datatable-footer {
     background: none !important;
@@ -124,6 +124,6 @@ th {
 }
 
 .form-center {
-  display:flex;
-  justify-content: center;
+    display:flex;
+    justify-content: center;
 }
