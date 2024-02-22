@@ -31,4 +31,6 @@ public interface AccountSessionLocal {
     public void addNewEvent(Account a, Event e);
     
     public void joinNewEvent(Account a, Event e);
+    
+    public void removeEvent(Account a, Event e);
 }

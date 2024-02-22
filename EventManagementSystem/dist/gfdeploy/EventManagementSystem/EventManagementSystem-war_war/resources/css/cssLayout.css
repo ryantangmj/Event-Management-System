@@ -110,14 +110,16 @@ th {
     border: none !important;
 }
 
-.ui-datatable .ui-state-highlight {
-    background-image: none;
+/*.ui-datatable .ui-state-highlight {
+    color: white;
     background-color: #1232A6 !important;
-}
+}*/
 
-.ui-datatable tr.ui-datatable-even:hover, .ui-datatable tr.ui-datatable-odd:hover {
+/*.ui-datatable tr.ui-datatable-even:hover, .ui-datatable tr.ui-datatable-odd:hover, ui-state-highlight {
     background: #1232A6;
-}
+    color: white;
+}*/
+
 .ui-datatable-footer {
     background: none !important;
     border: none!important;

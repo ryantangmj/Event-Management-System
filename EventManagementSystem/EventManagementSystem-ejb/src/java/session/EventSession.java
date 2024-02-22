@@ -41,7 +41,20 @@ public class EventSession implements EventSessionLocal {
             return q.getResultList();
         } catch(Exception e) {
             return new ArrayList<Event>();
+        }
     }
 
+    @Override
+    public void addParticipant(Account a, Event e) {
+        List<Account> participants = e.getParticipants();
+        participants.add(a);
+        e.setParticipants(participants);  
+    }
+
+    @Override
+    public void removeParticipant(Account a, Event e) {
+        List<Account> participants = e.getParticipants();
+        participants.remove(a);
+        e.setParticipants(participants);  
     }
 }

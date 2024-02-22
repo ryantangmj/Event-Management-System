@@ -17,5 +17,9 @@ import javax.ejb.Local;
 public interface EventSessionLocal {
     public void createEvent(Account a, Event e);
     
+    public void addParticipant(Account a, Event e);
+    
+    public void removeParticipant(Account a, Event e);
+    
     public List<Event> getAllEvents();
 }

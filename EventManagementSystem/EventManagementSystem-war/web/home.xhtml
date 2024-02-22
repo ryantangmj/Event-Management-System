@@ -4,7 +4,8 @@
                 template="/layout/loggedIn.xhtml"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
     <ui:define name="title">
         Event Genesis
     </ui:define>
@@ -12,14 +13,13 @@
         <h1>Welcome back, #{authenticationManagedBean.getName()}</h1><br />
         <subtitle>You can now register for events below.</subtitle>
         <h:form id="form">
-            <p:dataTable id="tableState" var="events" value="#{eventsManagedBean.events}"
-                         widgetVar="eventsTable" multiViewState="true" rows="10" paginator="true"
-                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                         rowsPerPageTemplate="5,10,15" selectionMode="single"
-                         selection="#{dtMultiViewStateView.selectedEvent}" rowKey="#{event.id}"
-                         emptyMessage="No events found with given criteria"
-                         filteredValue="#{dtMultiViewStateView.filteredEvents}" style="padding-top: 10px">
-
+            <p:growl id="growl" showDetail="true" sticky="true"/>
+            <p:dataTable var="event"
+                         value="#{eventsManagedBean.events}" widgetVar="eventsTable" rowKey="#{event.id}"
+                         emptyMessage="No events found with given criteria" style="padding-top: 10px" multiViewState="true"
+                         selection="#{eventsManagedBean.selectedEvent}"
+                         resizableColumns="true" rows="10" paginator="true" rowsPerPageTemplate="5,10,15"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
                 <f:facet name="header">
                     <p:outputPanel>
                         <h:outputText value="Search all fields:"/>
@@ -27,9 +27,7 @@
                                      placeholder="Enter keyword"/>
                     </p:outputPanel>
                 </f:facet>
-
-                <!--            <p:ajax event="rowSelect" update=":form:eventDetail" oncomplete="PF('eventDialog').show()"/>-->
-
+                <p:ajax event="rowSelect" update=":form:dialog" oncomplete="PF('dialogWidgetVar').show();" />
                 <p:column headerText="Title" filterBy="#{event.title}" sortBy="#{event.title}"
                           filterMatchMode="contains">
                     <h:outputText value="#{event.title}"/>
@@ -44,13 +42,37 @@
                 <p:column headerText="Date" filterBy="#{event.date}"
                           sortBy="#{event.date}" filterMatchMode="between">
                     <h:outputText style="vertical-align: middle; margin-left: .5rem"
-                                  value="#{event.date}"/>
+                                  value="#{event.date}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                    </h:outputText>
                 </p:column>
-<!--                <f:facet name="paginatorTopLeft">
-                    <p:commandButton value="Clear table state" action="#{dtMultiViewStateView.clearMultiViewState}"
-                                     update="@form"/>
-                </f:facet>-->
             </p:dataTable>
+            <p:dialog header="Event Details" widgetVar="dialogWidgetVar" modal="true" id="dialog">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="Title:" />
+                    <h:outputText value="#{eventsManagedBean.selectedEvent.title}" />
+                    <h:outputText value="Location:" />
+                    <h:outputText value="#{eventsManagedBean.selectedEvent.location}" />
+                    <h:outputText value="Date:" />
+                    <h:outputText value="#{eventsManagedBean.selectedEvent.date}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                    </h:outputText>
+                    <h:outputText value="Registration deadline:" />
+                    <h:outputText value="#{eventsManagedBean.selectedEvent.deadline}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                    </h:outputText>
+                    <h:outputText value="Description:" />
+                    <h:outputText value="#{eventsManagedBean.selectedEvent.description}" />
+                    <p:commandButton value="Register" icon="pi pi-user-plus" ajax="false"
+                                     action="#{eventsManagedBean.registerEvent(eventsManagedBean.selectedEvent,authenticationManagedBean.userId)}" 
+                                     rendered="#{not eventsManagedBean.isUserRegisteredForEvent(eventsManagedBean.selectedEvent)}"
+                                     style="font-size:16px; color:white; box-shadow:none; background-color:#03AC13;"/>
+                    <p:commandButton value="Unregister" icon="pi pi-user-minus" ajax="false"
+                                     action="#{eventsManagedBean.unregisterEvent(eventsManagedBean.selectedEvent,authenticationManagedBean.userId)}" 
+                                     rendered="#{eventsManagedBean.isUserRegisteredForEvent(eventsManagedBean.selectedEvent)}"
+                                     style="font-size:16px; color:white; box-shadow:none; background-color:#B90E0A;"/>
+                </h:panelGrid>
+            </p:dialog>
         </h:form>
     </ui:define>
     <ui:define name="image">

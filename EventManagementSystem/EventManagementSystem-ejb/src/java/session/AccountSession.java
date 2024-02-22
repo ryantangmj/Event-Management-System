@@ -94,4 +94,11 @@ public class AccountSession implements AccountSessionLocal {
         joinedEvents.add(e);
         a.setJoinedEvents(joinedEvents);  
     }
+
+    @Override
+    public void removeEvent(Account a, Event e) {
+        List<Event> joinedEvents = a.getJoinedEvents();
+        joinedEvents.remove(e);
+        a.setJoinedEvents(joinedEvents); 
+    }
 }

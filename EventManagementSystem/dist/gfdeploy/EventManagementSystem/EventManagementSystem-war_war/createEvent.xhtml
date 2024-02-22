@@ -38,17 +38,16 @@
                              requiredMessage="Location is required."/><br/>
                 <h2>Date</h2> 
                 <p:datePicker monthNavigator="true" yearNavigator="true" showWeek="true" id="date"
-                              mindate="#{eventsManagedBean.currentDate}"
+                              mindate="#{eventsManagedBean.currentDate}" showTime="true"
                               style='margin-top: -5%; margin-bottom: -5%; width: 100%'
                               value="#{eventsManagedBean.date}"
                               required="true" 
                               requiredMessage="Event date is required.">
-                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                 </p:datePicker><br/>
-
                 <h2>Deadline</h2> 
                 <p:datePicker monthNavigator="true" yearNavigator="true" showWeek="true" id="deadline"
-                              mindate="#{eventsManagedBean.currentDate}"
+                              mindate="#{eventsManagedBean.currentDate}" showTime="true"
                               style='margin-top: -5%; margin-bottom: -5%; width: 100%'
                               value="#{eventsManagedBean.deadline}"
                               required="true" 

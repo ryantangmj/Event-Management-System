@@ -88,7 +88,7 @@ public class AuthenticationManagedBean implements Serializable {
     public String login() {
         if (accountSession.authenticateAccount(email, password)) {
             userId = accountSession.getAccount(email, password);
-            return "/home.xhtml?faces-redirect=true";
+            return "home.xhtml?faces-redirect=true";
         } else {
             email = null;
             password = null;

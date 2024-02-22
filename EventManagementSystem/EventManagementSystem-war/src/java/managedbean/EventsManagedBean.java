@@ -37,6 +37,7 @@ public class EventsManagedBean implements Serializable {
 
     private List<Event> events = new ArrayList<Event>();
     private List<Event> organisedEvents = new ArrayList<Event>();
+    private List<Event> registeredEvents = new ArrayList<Event>();
     private Long userId = -1l;
     private Account account;
     private String title;
@@ -49,6 +50,41 @@ public class EventsManagedBean implements Serializable {
     @Temporal(TemporalType.DATE)
     @Future
     private Date deadline;
+    private Event selectedEvent;
+
+    public List<Event> getRegisteredEvents() {
+        return registeredEvents;
+    }
+
+    public void setRegisteredEvents(List<Event> registeredEvents) {
+        this.registeredEvents = registeredEvents;
+    }
+
+    /**
+     * Get the value of selectedEvent
+     *
+     * @return the value of selectedEvent
+     */
+    public Event getSelectedEvent() {
+        return selectedEvent;
+    }
+
+    /**
+     * Set the value of selectedEvent
+     *
+     * @param selectedEvent new value of selectedEvent
+     */
+    public void setSelectedEvent(Event selectedEvent) {
+        this.selectedEvent = selectedEvent;
+    }
+
+    @PostConstruct
+    public void init() {
+        if (events.size() == 0) {
+            events = eventSession.getAllEvents();
+            organisedEvents = new ArrayList<Event>();
+        }
+    }
 
     /**
      * Get the value of currentDate
@@ -84,14 +120,6 @@ public class EventsManagedBean implements Serializable {
      */
     public void setAccount(Account account) {
         this.account = account;
-    }
-
-    @PostConstruct
-    public void init() {
-        if (events.size() == 0) {
-            events = eventSession.getAllEvents();
-            organisedEvents = new ArrayList<Event>();
-        }
     }
 
     public Long getUserId() {
@@ -200,6 +228,36 @@ public class EventsManagedBean implements Serializable {
 
             eventSession.createEvent(account, event);
             return "events.xhtml?faces-redirect=true";
+        }
+    }
+
+    public boolean isUserRegisteredForEvent(Event event) {
+        return registeredEvents.contains(event);
+    }
+
+    public void registerEvent(Event event, Long userId) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            account = accountSession.getAccount(userId);
+            registeredEvents.add(event);
+            eventSession.addParticipant(account, selectedEvent);
+            accountSession.joinNewEvent(account, selectedEvent);
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Successfully registered for event"));
+        } catch (Exception e) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to register for event"));
+        }
+    }
+    
+     public void unregisterEvent(Event event, Long userId) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            account = accountSession.getAccount(userId);
+            registeredEvents.remove(event);
+            eventSession.removeParticipant(account, selectedEvent);
+            accountSession.removeEvent(account, selectedEvent);
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Successfully unregistered from event"));
+        } catch (Exception e) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to register for event"));
         }
     }
 }
