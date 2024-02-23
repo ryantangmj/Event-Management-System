@@ -107,4 +107,16 @@ public class AccountSession implements AccountSessionLocal {
 
         em.merge(a);
     }
+
+    @Override
+    public List<Event> getOrganisedEvents(Long id) {
+        Account account = em.find(Account.class, id);
+        return account.getOrganisedEvents();
+    }
+
+    @Override
+    public List<Event> getRegisteredEvents(Long id) {
+        Account account = em.find(Account.class, id);
+        return account.getJoinedEvents();
+    }
 }

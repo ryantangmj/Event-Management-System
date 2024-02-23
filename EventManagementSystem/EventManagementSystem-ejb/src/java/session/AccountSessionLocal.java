@@ -6,6 +6,7 @@ package session;
 
 import entity.Account;
 import entity.Event;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -33,4 +34,8 @@ public interface AccountSessionLocal {
     public void joinNewEvent(Account a, Event e);
     
     public void removeEvent(Account a, Event e);
+        
+    public List<Event> getOrganisedEvents(Long id);
+    
+    public List<Event> getRegisteredEvents(Long id);
 }

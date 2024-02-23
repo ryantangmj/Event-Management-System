@@ -23,7 +23,7 @@
                          value="#{eventsManagedBean.organisedEvents}" widgetVar="orgEventsTable" rowKey="#{event.id}"
                          emptyMessage="No events found with given criteria" style="padding-top: 10px" multiViewState="true"
                          selection="#{eventsManagedBean.selectedEvent}"
-                         resizableColumns="true" rows="10" paginator="true" rowsPerPageTemplate="5,10,15"
+                         resizableColumns="true" rows="3" paginator="true" rowsPerPageTemplate="3, 5"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
                 <p:column headerText="Title">
                     <h:outputText value="#{organisedEvents.title}"/>

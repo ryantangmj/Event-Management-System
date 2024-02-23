@@ -16,6 +16,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Future;
@@ -34,6 +35,8 @@ public class EventsManagedBean implements Serializable {
     private AccountSessionLocal accountSession;
     @EJB
     private EventSessionLocal eventSession;
+    @Inject
+    private AuthenticationManagedBean authenticationManagedBean;
 
     private List<Event> events = new ArrayList<Event>();
     private List<Event> organisedEvents = new ArrayList<Event>();
@@ -81,8 +84,10 @@ public class EventsManagedBean implements Serializable {
     @PostConstruct
     public void init() {
         if (events.size() == 0) {
+            userId = authenticationManagedBean.getUserId();
             events = eventSession.getAllEvents();
-            organisedEvents = new ArrayList<Event>();
+            organisedEvents = accountSession.getOrganisedEvents(userId);
+            registeredEvents = accountSession.getRegisteredEvents(userId);
         }
     }
 
