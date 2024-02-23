@@ -201,6 +201,15 @@ public class EventsManagedBean implements Serializable {
      */
     public EventsManagedBean() {
     }
+    
+    public void loadSelectedCustomer() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            this.account = accountSession.getAccount(userId);
+        } catch (Exception e) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to load account"));
+        }
+    }
 
     public String createEvent() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -217,6 +226,7 @@ public class EventsManagedBean implements Serializable {
             event.setDeadline(deadline);
             event.setOrganiser(account);
 
+            organisedEvents.add(event);
             eventSession.createEvent(account, event);
             accountSession.addNewEvent(account, event);
             return "events.xhtml?faces-redirect=true";
