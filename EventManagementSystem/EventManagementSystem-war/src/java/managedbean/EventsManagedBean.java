@@ -50,7 +50,7 @@ public class EventsManagedBean implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Future
     private Date deadline;
-    private Event selectedEvent;
+    private Event selectedEvent = new Event();
 
     public List<Event> getRegisteredEvents() {
         return registeredEvents;
@@ -235,6 +235,11 @@ public class EventsManagedBean implements Serializable {
 
     public boolean isUserRegisteredForEvent(Event event) {
         return registeredEvents.contains(event);
+    }
+    
+    public boolean isUserOrganiserForEvent(Event event, Long userId) {
+        account = accountSession.getAccount(userId);
+        return account.getOrganisedEvents().contains(event);
     }
 
     public void registerEvent(Event event, Long userId) {
