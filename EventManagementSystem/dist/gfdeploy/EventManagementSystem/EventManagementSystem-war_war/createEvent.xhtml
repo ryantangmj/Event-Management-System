@@ -52,7 +52,7 @@
                               value="#{eventsManagedBean.deadline}"
                               required="true" 
                               requiredMessage="Deadline is required.">
-                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                 </p:datePicker><br/>
             </h:panelGrid>
             <p:commandButton value="Add Event" 

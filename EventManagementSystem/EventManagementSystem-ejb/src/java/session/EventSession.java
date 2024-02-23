@@ -39,7 +39,7 @@ public class EventSession implements EventSessionLocal {
             q = em.createQuery("SELECT e FROM Event e");
 
             return q.getResultList();
-        } catch(Exception e) {
+        } catch (Exception e) {
             return new ArrayList<Event>();
         }
     }
@@ -48,13 +48,17 @@ public class EventSession implements EventSessionLocal {
     public void addParticipant(Account a, Event e) {
         List<Account> participants = e.getParticipants();
         participants.add(a);
-        e.setParticipants(participants);  
+        e.setParticipants(participants);
+
+        em.merge(e);
     }
 
     @Override
     public void removeParticipant(Account a, Event e) {
         List<Account> participants = e.getParticipants();
         participants.remove(a);
-        e.setParticipants(participants);  
+        e.setParticipants(participants);
+
+        em.merge(e);
     }
 }

@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 /**
@@ -28,9 +29,9 @@ public class Account implements Serializable {
     private String contactDetails;
     private String email;
     private String password;
-    @OneToMany
+    @OneToMany (mappedBy="organiser")
     private List<Event> organisedEvents = new ArrayList<Event>();
-    @OneToMany
+    @ManyToMany
     private List<Event> joinedEvents = new ArrayList<Event>();
     
     /**

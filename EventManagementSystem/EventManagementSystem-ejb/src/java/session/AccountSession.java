@@ -85,7 +85,9 @@ public class AccountSession implements AccountSessionLocal {
     public void addNewEvent(Account a, Event e) {
         List<Event> organisedEvents = a.getOrganisedEvents();
         organisedEvents.add(e);
-        a.setOrganisedEvents(organisedEvents);  
+        a.setOrganisedEvents(organisedEvents); 
+        
+        em.merge(a);
     }
 
     @Override
@@ -93,6 +95,8 @@ public class AccountSession implements AccountSessionLocal {
         List<Event> joinedEvents = a.getJoinedEvents();
         joinedEvents.add(e);
         a.setJoinedEvents(joinedEvents);  
+
+        em.merge(a);
     }
 
     @Override
@@ -100,5 +104,7 @@ public class AccountSession implements AccountSessionLocal {
         List<Event> joinedEvents = a.getJoinedEvents();
         joinedEvents.remove(e);
         a.setJoinedEvents(joinedEvents); 
+
+        em.merge(a);
     }
 }
