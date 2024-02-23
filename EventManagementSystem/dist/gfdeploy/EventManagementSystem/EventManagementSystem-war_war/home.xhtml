@@ -43,7 +43,7 @@
                           sortBy="#{event.date}" filterMatchMode="between">
                     <h:outputText style="vertical-align: middle; margin-left: .5rem"
                                   value="#{event.date}">
-                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
                     </h:outputText>
                 </p:column>
             </p:dataTable>
@@ -55,11 +55,11 @@
                     <h:outputText value="#{eventsManagedBean.selectedEvent.location}" style="margin-bottom:2px"/>
                     <h:outputText value="Date:" />
                     <h:outputText value="#{eventsManagedBean.selectedEvent.date}" style="margin-bottom:2px">
-                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
                     </h:outputText>
                     <h:outputText value="Registration deadline:" />
                     <h:outputText value="#{eventsManagedBean.selectedEvent.deadline}" style="margin-bottom:2px">
-                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
                     </h:outputText>
                     <h:outputText value="Description:" />
                     <h:outputText value="#{eventsManagedBean.selectedEvent.description}" style="margin-bottom:4px" />

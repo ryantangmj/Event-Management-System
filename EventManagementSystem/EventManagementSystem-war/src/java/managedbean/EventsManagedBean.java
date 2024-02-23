@@ -42,12 +42,12 @@ public class EventsManagedBean implements Serializable {
     private Account account;
     private String title;
     private Date currentDate = new Date();
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Future
     private Date date;
     private String location;
     private String description;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Future
     private Date deadline;
     private Event selectedEvent;
