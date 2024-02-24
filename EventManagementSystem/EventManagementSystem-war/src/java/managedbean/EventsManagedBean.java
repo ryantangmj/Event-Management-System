@@ -277,6 +277,8 @@ public class EventsManagedBean implements Serializable {
     public void deleteEvent(Event event, Long userId) {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
+            int size = eventSession.retrieveParticipants(event.getId()).size();
+            System.out.println(size);
             if (eventSession.retrieveParticipants(event.getId()).size() > 0) {
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to delete event as there are already participants"));
                 return;

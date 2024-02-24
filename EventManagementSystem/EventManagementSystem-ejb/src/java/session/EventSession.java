@@ -29,7 +29,6 @@ public class EventSession implements EventSessionLocal {
     @Override
     public void createEvent(Account a, Event e) {
         em.persist(e);
-        accountSession.addNewEvent(a, e);
     }
 
     @Override

@@ -23,7 +23,7 @@
             </div>
             <p:dataTable var="organisedEvents"
                          value="#{eventsManagedBean.organisedEvents}" widgetVar="orgEventsTable" rowKey="#{organisedEvents.id}"
-                         emptyMessage="No events found with given criteria" style="padding-top: 10px" multiViewState="true"
+                         emptyMessage="You did not organise any event" style="padding-top: 10px" multiViewState="true"
                          selectionMode="single" selection="#{eventsManagedBean.selectedEvent}"
                          resizableColumns="true" rows="3" paginator="true"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
@@ -31,13 +31,13 @@
                 <p:column headerText="Title">
                     <h:outputText value="#{organisedEvents.title}"/>
                 </p:column>
+                <p:column headerText="Location">
+                    <h:outputText value="#{organisedEvents.location}"/>
+                </p:column>
                 <p:column headerText="Date">
                     <h:outputText value="#{organisedEvents.date}">
                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
                     </h:outputText>
-                </p:column>
-                <p:column headerText="Location">
-                    <h:outputText value="#{organisedEvents.location}"/>
                 </p:column>
             </p:dataTable>
             <p:dialog header="Event Details" widgetVar="dialogOrgEvents" modal="true" id="editDialog">
@@ -57,27 +57,58 @@
                     <h:outputText value="Description:" />
                     <h:outputText value="#{eventsManagedBean.selectedEvent.description}" style="margin-bottom:4px" />
                     <p:commandButton value="Delete" icon="pi pi-trash" ajax="false"
-                                     action="#{eventsManagedBean.deleteEvent(eventsManagedBean.selectedEvent,authenticationManagedBean.userId)}" 
+                                     action="#{eventsManagedBean.deleteEvent(eventsManagedBean.selectedEvent, authenticationManagedBean.userId)}" 
                                      style="font-size:16px; color:white; box-shadow:none; background-color:#B90E0A;"/>
                 </h:panelGrid>
             </p:dialog>
         </h:form>
         <h2 style="font-size: 20px; margin-top: 2%">Joined Events</h2>
-        <h:form>
-            <p:dataTable var="organisedEvents" value="#{eventsManagedBean.organisedEvents}" widgetVar="customersTable3"
-                         emptyMessage="No events are organised by you"
-                         filteredValue="#{eventsManagedBean.filteredEvents}"
-                         globalFilterFunction="#{eventsManagedBean.globalFilterEvents}">
+        <h:form id="myRegisteredEvents">
+            <p:dataTable var="registeredEvents" value="#{eventsManagedBean.registeredEvents}" widgetVar="customersTable3"
+                         rowKey="#{registeredEvents.id}"
+                         emptyMessage="You did not register for any event" style="padding-top: 10px" multiViewState="true"
+                         selectionMode="single" selection="#{eventsManagedBean.selectedEvent}"
+                         resizableColumns="true" rows="3" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                <p:ajax event="rowSelect" update="myRegisteredEvents:registerDialog" oncomplete="PF('dialogRegEvents').show();" />>
                 <p:column headerText="Title">
-                    <h:outputText value="#{organisedEvents.title}"/>
-                </p:column>
-                <p:column headerText="Date">
-                    <h:outputText value="#{organisedEvents.date}"/>
+                    <h:outputText value="#{registeredEvents.title}"/>
                 </p:column>
                 <p:column headerText="Location">
-                    <h:outputText value="#{organisedEvents.location}"/>
+                    <h:outputText value="#{registeredEvents.location}"/>
+                </p:column>
+                <p:column headerText="Date">
+                    <h:outputText value="#{registeredEvents.date}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
+                    </h:outputText>
                 </p:column>
             </p:dataTable>
+            <p:dialog header="Event Details" widgetVar="dialogRegEvents" modal="true" id="registerDialog">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="Title:" />
+                    <h:outputText value="#{eventsManagedBean.selectedEvent.title}" style="margin-bottom:2px" />
+                    <h:outputText value="Location:" />
+                    <h:outputText value="#{eventsManagedBean.selectedEvent.location}" style="margin-bottom:2px"/>
+                    <h:outputText value="Date:" />
+                    <h:outputText value="#{eventsManagedBean.selectedEvent.date}" style="margin-bottom:2px">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
+                    </h:outputText>
+                    <h:outputText value="Registration deadline:" />
+                    <h:outputText value="#{eventsManagedBean.selectedEvent.deadline}" style="margin-bottom:2px">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
+                    </h:outputText>
+                    <h:outputText value="Description:" />
+                    <h:outputText value="#{eventsManagedBean.selectedEvent.description}" style="margin-bottom:4px" />
+                    <p:commandButton value="Register" icon="pi pi-user-plus" ajax="false"
+                                     action="#{eventsManagedBean.registerEvent(eventsManagedBean.selectedEvent,authenticationManagedBean.userId)}"
+                                     rendered="#{not eventsManagedBean.isUserRegisteredForEvent(authenticationManagedBean.userId, eventsManagedBean.selectedEvent)}"
+                                     style="font-size:16px; color:white; box-shadow:none; background-color:#03AC13;" />
+                    <p:commandButton value="Unregister" icon="pi pi-user-minus" ajax="false"
+                                     action="#{eventsManagedBean.unregisterEvent(eventsManagedBean.selectedEvent,authenticationManagedBean.userId)}"
+                                     rendered="#{eventsManagedBean.isUserRegisteredForEvent(authenticationManagedBean.userId, eventsManagedBean.selectedEvent)}"
+                                     style="font-size:16px; color:white; box-shadow:none; background-color:#B90E0A;" />
+                </h:panelGrid>
+            </p:dialog>
         </h:form>
     </ui:define>
     <ui:define name="image">
