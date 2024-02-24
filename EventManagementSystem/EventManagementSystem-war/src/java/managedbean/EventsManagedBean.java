@@ -55,33 +55,9 @@ public class EventsManagedBean implements Serializable {
     private Date deadline;
     private Event selectedEvent;
 
-    public List<Event> getRegisteredEvents() {
-        registeredEvents = accountSession.getRegisteredEvents(userId);
-        return registeredEvents;
+    public EventsManagedBean() {
     }
-
-    public void setRegisteredEvents(List<Event> registeredEvents) {
-        this.registeredEvents = registeredEvents;
-    }
-
-    /**
-     * Get the value of selectedEvent
-     *
-     * @return the value of selectedEvent
-     */
-    public Event getSelectedEvent() {
-        return selectedEvent;
-    }
-
-    /**
-     * Set the value of selectedEvent
-     *
-     * @param selectedEvent new value of selectedEvent
-     */
-    public void setSelectedEvent(Event selectedEvent) {
-        this.selectedEvent = selectedEvent;
-    }
-
+    
     @PostConstruct
     public void init() {
         if (events.size() == 0) {
@@ -91,39 +67,36 @@ public class EventsManagedBean implements Serializable {
             registeredEvents = accountSession.getRegisteredEvents(userId);
         }
     }
+    
+    public List<Event> getRegisteredEvents() {
+        registeredEvents = accountSession.getRegisteredEvents(userId);
+        return registeredEvents;
+    }
 
-    /**
-     * Get the value of currentDate
-     *
-     * @return the value of currentDate
-     */
+    public void setRegisteredEvents(List<Event> registeredEvents) {
+        this.registeredEvents = registeredEvents;
+    }
+
+    public Event getSelectedEvent() {
+        return selectedEvent;
+    }
+
+    public void setSelectedEvent(Event selectedEvent) {
+        this.selectedEvent = selectedEvent;
+    }
+
     public Date getCurrentDate() {
         return currentDate;
     }
 
-    /**
-     * Set the value of currentDate
-     *
-     * @param currentDate new value of currentDate
-     */
     public void setCurrentDate(Date currentDate) {
         this.currentDate = currentDate;
     }
 
-    /**
-     * Get the value of account
-     *
-     * @return the value of account
-     */
     public Account getAccount() {
         return account;
     }
 
-    /**
-     * Set the value of account
-     *
-     * @param account new value of account
-     */
     public void setAccount(Account account) {
         this.account = account;
     }
@@ -185,28 +158,12 @@ public class EventsManagedBean implements Serializable {
         this.organisedEvents = organisedEvents;
     }
 
-    /**
-     * Get the value of events
-     *
-     * @return the value of events
-     */
     public List<Event> getEvents() {
         return events;
     }
 
-    /**
-     * Set the value of events
-     *
-     * @param events new value of events
-     */
     public void setEvents(List<Event> events) {
         this.events = events;
-    }
-
-    /**
-     * Creates a new instance of EventsManagedBean
-     */
-    public EventsManagedBean() {
     }
 
     public void loadSelectedCustomer() {
