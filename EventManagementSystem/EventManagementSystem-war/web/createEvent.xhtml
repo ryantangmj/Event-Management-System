@@ -11,11 +11,6 @@
         Create Event
     </ui:define>
     <ui:define name="content">
-        <f:metadata>
-            <f:viewParam name="accountId" value="#{eventsManagedBean.userId}" />
-            <f:event type="preRenderView"
-                     listener="#{eventsManagedBean.loadSelectedCustomer}"/>
-        </f:metadata>
         <h1>Create Event</h1><br />
         <subtitle>Crafting Moments, Creating Memories.</subtitle>
         <h:form style="margin-top: 36px;">       
@@ -56,7 +51,7 @@
                 </p:datePicker><br/>
             </h:panelGrid>
             <p:commandButton value="Add Event" 
-                             action="#{eventsManagedBean.createEvent}"
+                             action="#{eventsManagedBean.createEvent(authenticationManagedBean.userId)}"
                              update="growl @form"
                              icon="pi pi-calendar-plus"
                              style="font-size:16px; margin-top: 15px; background-color:#6f4d8e; color:white; text-shadow:none; text-align: center;

@@ -218,13 +218,14 @@ public class EventsManagedBean implements Serializable {
         }
     }
 
-    public String createEvent() {
+    public String createEvent(Long userId) {
         FacesContext context = FacesContext.getCurrentInstance();
         if (deadline.after(date)) {
             context.addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Validation Error", "The deadline for registration must be before the event date"));
             return null;
         } else {
+            account = accountSession.getAccount(userId);
             Event event = new Event();
             event.setTitle(title);
             event.setDate(date);
