@@ -34,6 +34,8 @@ public interface AccountSessionLocal {
     public void joinNewEvent(Account a, Event e);
     
     public void removeEvent(Account a, Event e);
+    
+    public void removeOrgEvent(Account a, Event e);
         
     public List<Event> getOrganisedEvents(Long id);
     

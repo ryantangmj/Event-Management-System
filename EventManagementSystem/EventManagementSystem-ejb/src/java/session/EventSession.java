@@ -61,4 +61,26 @@ public class EventSession implements EventSessionLocal {
 
         em.merge(e);
     }
+
+    @Override
+    public void removeOrgEvent(Event e) {
+        Event managedEvent = em.merge(e); // Ensure the entity is managed
+        em.remove(managedEvent);
+    }
+
+    @Override
+    public List<Account> retrieveParticipants(Long id) {
+        try {
+            Event e = em.find(Event.class, id);
+            return e.getParticipants();
+        } catch (Exception e) {
+            return new ArrayList<Account>();
+        }
+    }
+
+    @Override
+    public Event getEvent(Long id) {
+        Event event = em.find(Event.class, id);
+        return event;
+    }
 }

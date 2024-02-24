@@ -107,6 +107,15 @@ public class AccountSession implements AccountSessionLocal {
 
         em.merge(a);
     }
+    
+    @Override
+    public void removeOrgEvent(Account a, Event e) {
+        List<Event> organisedEvents = a.getOrganisedEvents();
+        organisedEvents.remove(e);
+        a.setOrganisedEvents(organisedEvents); 
+
+        em.merge(a);
+    }
 
     @Override
     public List<Event> getOrganisedEvents(Long id) {

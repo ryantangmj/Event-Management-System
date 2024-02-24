@@ -53,7 +53,7 @@ public class EventsManagedBean implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Future
     private Date deadline;
-    private Event selectedEvent = new Event();
+    private Event selectedEvent;
 
     public List<Event> getRegisteredEvents() {
         return registeredEvents;
@@ -206,7 +206,7 @@ public class EventsManagedBean implements Serializable {
      */
     public EventsManagedBean() {
     }
-    
+
     public void loadSelectedCustomer() {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
@@ -241,10 +241,20 @@ public class EventsManagedBean implements Serializable {
     public boolean isUserRegisteredForEvent(Event event) {
         return registeredEvents.contains(event);
     }
-    
+
     public boolean isUserOrganiserForEvent(Event event, Long userId) {
         account = accountSession.getAccount(userId);
         return account.getOrganisedEvents().contains(event);
+    }
+
+    public boolean noUserRegistered(Long eventId) {
+        if (eventId == null) {
+            throw new IllegalArgumentException("Event ID cannot be null");
+        }
+
+        selectedEvent = eventSession.getEvent(eventId);
+        List<Account> participants = eventSession.retrieveParticipants(selectedEvent.getId());
+        return participants.size() == 0;
     }
 
     public void registerEvent(Event event, Long userId) {
@@ -270,6 +280,23 @@ public class EventsManagedBean implements Serializable {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Successfully unregistered from event"));
         } catch (Exception e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to register for event"));
+        }
+    }
+
+    public void deleteEvent(Long eventId, Long userId) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            if(eventId == null) {
+                throw new IllegalArgumentException("Event ID cannot be null");
+            } 
+            selectedEvent = eventSession.getEvent(eventId);
+            account = accountSession.getAccount(userId);
+            organisedEvents.remove(selectedEvent);
+            accountSession.removeOrgEvent(account, selectedEvent);
+            eventSession.removeOrgEvent(selectedEvent);
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Successfully deleted event"));
+        } catch (Exception e) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to delete event"));
         }
     }
 }
