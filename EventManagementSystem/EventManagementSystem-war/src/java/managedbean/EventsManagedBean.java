@@ -240,13 +240,14 @@ public class EventsManagedBean implements Serializable {
     }
 
     public boolean isUserRegisteredForEvent(Long userId, Event event) {
+        selectedEvent = event;
         List<Event> events = accountSession.getRegisteredEvents(userId);
         return events.contains(event);
     }
 
-    public boolean isUserOrganiserForEvent(Event event, Long userId) {
+    public boolean isUserOrganiserForEvent(Long userId) {
         account = accountSession.getAccount(userId);
-        return account.getOrganisedEvents().contains(event);
+        return account.getOrganisedEvents().contains(selectedEvent);
     }
 
     public void registerEvent(Event event, Long userId) {
