@@ -56,6 +56,7 @@ public class EventsManagedBean implements Serializable {
     private Event selectedEvent;
 
     public List<Event> getRegisteredEvents() {
+        registeredEvents = accountSession.getRegisteredEvents(userId);
         return registeredEvents;
     }
 
@@ -176,6 +177,7 @@ public class EventsManagedBean implements Serializable {
     }
 
     public List<Event> getOrganisedEvents() {
+        organisedEvents = accountSession.getOrganisedEvents(userId);
         return organisedEvents;
     }
 
@@ -231,15 +233,15 @@ public class EventsManagedBean implements Serializable {
             event.setDeadline(deadline);
             event.setOrganiser(account);
 
-            organisedEvents.add(event);
             eventSession.createEvent(account, event);
             accountSession.addNewEvent(account, event);
             return "events.xhtml?faces-redirect=true";
         }
     }
 
-    public boolean isUserRegisteredForEvent(Event event) {
-        return registeredEvents.contains(event);
+    public boolean isUserRegisteredForEvent(Long userId, Event event) {
+        List<Event> events = accountSession.getRegisteredEvents(userId);
+        return events.contains(event);
     }
 
     public boolean isUserOrganiserForEvent(Event event, Long userId) {
@@ -247,21 +249,10 @@ public class EventsManagedBean implements Serializable {
         return account.getOrganisedEvents().contains(event);
     }
 
-    public boolean noUserRegistered(Long eventId) {
-        if (eventId == null) {
-            throw new IllegalArgumentException("Event ID cannot be null");
-        }
-
-        selectedEvent = eventSession.getEvent(eventId);
-        List<Account> participants = eventSession.retrieveParticipants(selectedEvent.getId());
-        return participants.size() == 0;
-    }
-
     public void registerEvent(Event event, Long userId) {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
             account = accountSession.getAccount(userId);
-            registeredEvents.add(event);
             eventSession.addParticipant(account, selectedEvent);
             accountSession.joinNewEvent(account, selectedEvent);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Successfully registered for event"));
@@ -274,7 +265,6 @@ public class EventsManagedBean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
             account = accountSession.getAccount(userId);
-            registeredEvents.remove(event);
             eventSession.removeParticipant(account, selectedEvent);
             accountSession.removeEvent(account, selectedEvent);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Successfully unregistered from event"));
@@ -283,17 +273,17 @@ public class EventsManagedBean implements Serializable {
         }
     }
 
-    public void deleteEvent(Long eventId, Long userId) {
+    public void deleteEvent(Event event, Long userId) {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
-            if(eventId == null) {
-                throw new IllegalArgumentException("Event ID cannot be null");
-            } 
-            selectedEvent = eventSession.getEvent(eventId);
+            if (eventSession.retrieveParticipants(event.getId()).size() > 0) {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to delete event as there are already participants"));
+                return;
+            }
             account = accountSession.getAccount(userId);
-            organisedEvents.remove(selectedEvent);
-            accountSession.removeOrgEvent(account, selectedEvent);
-            eventSession.removeOrgEvent(selectedEvent);
+            organisedEvents.remove(event);
+            accountSession.removeOrgEvent(account, event);
+            eventSession.removeOrgEvent(event);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Successfully deleted event"));
         } catch (Exception e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to delete event"));

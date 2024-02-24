@@ -62,17 +62,15 @@
                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
                     </h:outputText>
                     <h:outputText value="Description:" />
-                    <h:outputText value="#{eventsManagedBean.selectedEvent.description}" style="margin-bottom:4px" />
+                    <h:outputText value="#{eventsManagedBean.selectedEvent.description}" style="margin-bottom:4px"/>
                     <p:commandButton value="Register" icon="pi pi-user-plus" ajax="false"
-                                     action="#{eventsManagedBean.registerEvent(eventsManagedBean.selectedEvent,authenticationManagedBean.userId)}" 
-                                     rendered="#{not eventsManagedBean.isUserRegisteredForEvent(eventsManagedBean.selectedEvent) 
-                                                 and not eventsManagedBean.isUserOrganiserForEvent(eventsManagedBean.selectedEvent, authenticationManagedBean.userId)}"   
-                                     style="font-size:16px; color:white; box-shadow:none; background-color:#03AC13;"/>
+                                     action="#{eventsManagedBean.registerEvent(eventsManagedBean.selectedEvent,authenticationManagedBean.userId)}"
+                                     rendered="#{not eventsManagedBean.isUserRegisteredForEvent(authenticationManagedBean.userId, eventsManagedBean.selectedEvent)}"
+                                     style="font-size:16px; color:white; box-shadow:none; background-color:#03AC13;" />
                     <p:commandButton value="Unregister" icon="pi pi-user-minus" ajax="false"
-                                     action="#{eventsManagedBean.unregisterEvent(eventsManagedBean.selectedEvent,authenticationManagedBean.userId)}" 
-                                     rendered="#{eventsManagedBean.isUserRegisteredForEvent(eventsManagedBean.selectedEvent)}
-                                     and not eventsManagedBean.isUserOrganiserForEvent(eventsManagedBean.selectedEvent, authenticationManagedBean.userId)}"
-                                     style="font-size:16px; color:white; box-shadow:none; background-color:#B90E0A;"/>
+                                     action="#{eventsManagedBean.unregisterEvent(eventsManagedBean.selectedEvent,authenticationManagedBean.userId)}"
+                                     rendered="#{eventsManagedBean.isUserRegisteredForEvent(authenticationManagedBean.userId, eventsManagedBean.selectedEvent)}"
+                                     style="font-size:16px; color:white; box-shadow:none; background-color:#B90E0A;" />
                 </h:panelGrid>
             </p:dialog>
         </h:form>

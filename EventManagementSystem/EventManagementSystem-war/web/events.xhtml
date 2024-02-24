@@ -13,6 +13,7 @@
         <h1>My Events</h1><br />
         <subtitle>Explore the events you have created and signed up for!</subtitle> 
         <h:form id="myOrganisedEvents">
+            <p:growl id="growl" showDetail="true" sticky="true"/>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2%; margin-bottom: 2%">
                 <h2 style="font-size: 20px;">Events Organised</h2>
                 <p:commandButton value="Add Event" 
@@ -56,7 +57,7 @@
                     <h:outputText value="Description:" />
                     <h:outputText value="#{eventsManagedBean.selectedEvent.description}" style="margin-bottom:4px" />
                     <p:commandButton value="Delete" icon="pi pi-trash" ajax="false"
-                                     action="#{eventsManagedBean.deleteEvent(eventsManagedBean.selectedEvent.id,authenticationManagedBean.userId)}" 
+                                     action="#{eventsManagedBean.deleteEvent(eventsManagedBean.selectedEvent,authenticationManagedBean.userId)}" 
                                      style="font-size:16px; color:white; box-shadow:none; background-color:#B90E0A;"/>
                 </h:panelGrid>
             </p:dialog>
