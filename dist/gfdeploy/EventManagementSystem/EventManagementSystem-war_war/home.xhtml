@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/layout/loggedIn.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+    <ui:define name="title">
+        Event Genesis
+    </ui:define>
+    <ui:define name="content">
+        <h1>Welcome back, #{authenticationManagedBean.getName()}</h1><br />
+        <subtitle>You can now register for events below.</subtitle>
+        <h:form id="form">
+            <p:growl id="growl" showDetail="true" sticky="true"/>
+            <p:dataTable var="event"
+                         value="#{eventsManagedBean.events}" widgetVar="eventsTable" rowKey="#{event.id}"
+                         emptyMessage="No events found with given criteria" style="padding-top: 10px" multiViewState="true"
+                         selection="#{eventsManagedBean.selectedEvent}"
+                         resizableColumns="true" rows="10" paginator="true" rowsPerPageTemplate="5,10,15"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Search all fields:"/>
+                        <p:inputText id="globalFilter" onkeyup="PF('eventsTable').filter()" style="width:150px"
+                                     placeholder="Enter keyword"/>
+                    </p:outputPanel>
+                </f:facet>
+                <p:ajax event="rowSelect" update=":form:dialog" oncomplete="PF('dialogWidgetVar').show();" />
+                <p:column headerText="Title" filterBy="#{event.title}" sortBy="#{event.title}"
+                          filterMatchMode="contains">
+                    <h:outputText value="#{event.title}"/>
+                </p:column>
+                <p:column headerText="Location" filterBy="#{event.location}" sortBy="#{event.location}"
+                          filterMatchMode="startsWith">
+                    <span class="flag flag-#{event.location}" style="width: 30px; height: 20px"/>
+                    <h:outputText style="vertical-align: middle; margin-left: .5rem"
+                                  value="#{event.location}"/>
+                </p:column>
+
+                <p:column headerText="Date" filterBy="#{event.date}"
+                          sortBy="#{event.date}" filterMatchMode="between">
+                    <h:outputText style="vertical-align: middle; margin-left: .5rem"
+                                  value="#{event.date}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
+                    </h:outputText>
+                </p:column>
+            </p:dataTable>
+            <p:dialog header="Event Details" widgetVar="dialogWidgetVar" modal="true" id="dialog">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="Title:" />
+                    <h:outputText value="#{eventsManagedBean.selectedEvent.title}" style="margin-bottom:2px" />
+                    <h:outputText value="Location:" />
+                    <h:outputText value="#{eventsManagedBean.selectedEvent.location}" style="margin-bottom:2px"/>
+                    <h:outputText value="Date:" />
+                    <h:outputText value="#{eventsManagedBean.selectedEvent.date}" style="margin-bottom:2px">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
+                    </h:outputText>
+                    <h:outputText value="Registration deadline:" />
+                    <h:outputText value="#{eventsManagedBean.selectedEvent.deadline}" style="margin-bottom:2px">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
+                    </h:outputText>
+                    <h:outputText value="Description:" />
+                    <h:outputText value="#{eventsManagedBean.selectedEvent.description}" style="margin-bottom:4px"/>
+                    <p:commandButton value="Register" icon="pi pi-user-plus" ajax="false"
+                                     action="#{eventsManagedBean.registerEvent(eventsManagedBean.selectedEvent,authenticationManagedBean.userId)}"
+                                     rendered="#{not eventsManagedBean.isUserRegisteredForEvent(authenticationManagedBean.userId, eventsManagedBean.selectedEvent)
+                                                 and not eventsManagedBean.isUserOrganiserForEvent(authenticationManagedBean.userId)}"
+                                     style="font-size:16px; color:white; box-shadow:none; background-color:#03AC13;" />
+                    <p:commandButton value="Unregister" icon="pi pi-user-minus" ajax="false"
+                                     action="#{eventsManagedBean.unregisterEvent(eventsManagedBean.selectedEvent,authenticationManagedBean.userId)}"
+                                     rendered="#{eventsManagedBean.isUserRegisteredForEvent(authenticationManagedBean.userId, eventsManagedBean.selectedEvent)
+                                                 and not eventsManagedBean.isUserOrganiserForEvent(authenticationManagedBean.userId)}"
+                                     style="font-size:16px; color:white; box-shadow:none; background-color:#B90E0A;" />
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+    <ui:define name="image">
+        <img style="width:160px;  position:relative; margin-top:15%;"
+             src="resources/images/home.png" alt="home"/>
+    </ui:define>
+    <ui:define name="button">
+        <h:form>
+            <p:commandButton value="Log Out" icon="pi pi-sign-out" ajax="false"
+                             action="#{authenticationManagedBean.logout}" 
+                             style="font-size:16px; color:white; box-shadow:none;
+                             background-color:#1232A6;"/>
+
+        </h:form>
+    </ui:define>
+    <ui:define name="nextPage">
+        <h:form>
+            <p:commandButton value="My Events" icon="pi pi-list" ajax="false"
+                             action="events.xhtml?faces-redirect=true"
+                             style="font-size:16px; color:white; box-shadow:none;
+                             background-color:#1232A6;"/>
+            <p:commandButton value="My Profile" icon="pi pi-user" ajax="false"
+                             action="#{authenticationManagedBean.navigateToProfile()}"
+                             style="font-size:16px; color:white; box-shadow:none;
+                             background-color:#1232A6;"/>
+
+        </h:form>
+    </ui:define>
+    <ui:define name="logo">
+        <img style="display:inline;height: 38px;width:48px;padding-right:12px;"
+             src="resources/images/logo.png" alt="logo"
+             onerror="this.src='resources/imageslogo.png'"/>
+        <h1 style="display:inline;color:#FFFFFF;
+            border-bottom:0px">Event Genesis</h1>
+    </ui:define>
+</ui:composition>
