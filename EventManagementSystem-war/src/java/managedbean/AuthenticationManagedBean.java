@@ -8,6 +8,9 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import static org.primefaces.component.focus.FocusBase.PropertyKeys.context;
 import session.AccountSessionLocal;
 
 /**
@@ -52,6 +55,7 @@ public class AuthenticationManagedBean implements Serializable {
     }
 
     public String login() {
+        FacesContext context = FacesContext.getCurrentInstance();
         if (accountSession.authenticateAccount(email, password)) {
             userId = accountSession.getAccount(email, password);
             return "home.xhtml?faces-redirect=true";
@@ -59,6 +63,7 @@ public class AuthenticationManagedBean implements Serializable {
             email = null;
             password = null;
             userId = -1l;
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Your email or password is wrong"));
             return "index.xhtml";
         }
     }

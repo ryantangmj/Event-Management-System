@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns="http://www.w3.org/1999/xhtml"
                 template="./layout/default.xhtml"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
@@ -11,16 +12,19 @@
         <h1>Login</h1><br />
         <subtitle>Welcome back! Please log in to your account.</subtitle>
         <h:form style="margin-top: 36px;">
+            <p:growl id="growl" showDetail="true" sticky="true"/>  
             <h2>Email</h2>
-            <span class="ui-float-label">
+            <span class="ui-float-label" style="display: block;">
                 <p:inputText id="username" value="#{authenticationManagedBean.email}"
-                             style="font-size:20px; width:100%; font-family: 'DM Sans';"/>
+                             style="font-size:20px; width: calc(100% - 2px); font-family: 'DM Sans';"/>
             </span>
             <h2>Password</h2>
-            <span class="ui-float-label">
-                <p:password id="password" value="#{authenticationManagedBean.password}" style="font-size:20px; width:100%; margin-bottom: 12px"/>
+            <span class="ui-float-label" style="display: block;">
+                <p:password id="password" value="#{authenticationManagedBean.password}" 
+                            toggleMask="true" redisplay="true"
+                            style="font-size:20px; width: calc(100% - 2px); font-family: 'DM Sans';"/>
             </span>
-            <a href="createAccount.xhtml" style="margin: 2px; font-size:15px; width:100%; font-family: 'DM Sans'; color: #1232A6;">
+            <br/><a href="createAccount.xhtml" style="margin: 2px; font-size:15px; width:100%; font-family: 'DM Sans'; color: #1232A6;">
                 New? Sign up for an account now!
             </a>
             <p:commandButton value="Login" icon="pi pi-sign-in" ajax="false"

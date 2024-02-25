@@ -110,15 +110,20 @@ th {
     border: none !important;
 }
 
-/*.ui-datatable .ui-state-highlight {
-    color: white;
-    background-color: #1232A6 !important;
-}*/
+.ui-float-label {
+    width: 100%; 
+}
 
-/*.ui-datatable tr.ui-datatable-even:hover, .ui-datatable tr.ui-datatable-odd:hover, ui-state-highlight {
-    background: #1232A6;
-    color: white;
-}*/
+.ui-inputtext, .ui-password {
+    width: 100% !important; 
+    box-sizing: border-box;
+}
+
+.ui-password .ui-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
 
 .ui-datatable-footer {
     background: none !important;
