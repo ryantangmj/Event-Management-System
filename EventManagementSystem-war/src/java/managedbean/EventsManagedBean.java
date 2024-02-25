@@ -69,7 +69,6 @@ public class EventsManagedBean implements Serializable {
     }
     
     public List<Event> getRegisteredEvents() {
-        registeredEvents = accountSession.getRegisteredEvents(userId);
         return registeredEvents;
     }
 
@@ -150,7 +149,6 @@ public class EventsManagedBean implements Serializable {
     }
 
     public List<Event> getOrganisedEvents() {
-        organisedEvents = accountSession.getOrganisedEvents(userId);
         return organisedEvents;
     }
 
@@ -214,6 +212,7 @@ public class EventsManagedBean implements Serializable {
             account = accountSession.getAccount(userId);
             eventSession.addParticipant(account, selectedEvent);
             accountSession.joinNewEvent(account, selectedEvent);
+            registeredEvents = accountSession.getRegisteredEvents(userId);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Successfully registered for event"));
         } catch (Exception e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to register for event"));
@@ -226,6 +225,7 @@ public class EventsManagedBean implements Serializable {
             account = accountSession.getAccount(userId);
             eventSession.removeParticipant(account, selectedEvent);
             accountSession.removeEvent(account, selectedEvent);
+            registeredEvents = accountSession.getRegisteredEvents(userId);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Successfully unregistered from event"));
         } catch (Exception e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to register for event"));

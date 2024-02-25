@@ -39,8 +39,8 @@
                                   value="#{event.location}"/>
                 </p:column>
 
-                <p:column headerText="Date" filterBy="#{event.date}"
-                          sortBy="#{event.date}" filterMatchMode="between">
+                <p:column headerText="Date" 
+                          sortBy="#{event.date}">
                     <h:outputText style="vertical-align: middle; margin-left: .5rem"
                                   value="#{event.date}">
                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>

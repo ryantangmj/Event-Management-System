@@ -28,13 +28,13 @@
                          resizableColumns="true" rows="3" paginator="true"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
                 <p:ajax event="rowSelect" update=":myOrganisedEvents:editDialog" oncomplete="PF('dialogOrgEvents').show();" />
-                <p:column headerText="Title">
+                <p:column headerText="Title" sortBy="#{organisedEvents.title}">
                     <h:outputText value="#{organisedEvents.title}"/>
                 </p:column>
-                <p:column headerText="Location">
+                <p:column headerText="Location" sortBy="#{organisedEvents.location}">
                     <h:outputText value="#{organisedEvents.location}"/>
                 </p:column>
-                <p:column headerText="Date">
+                <p:column headerText="Date" sortBy="#{organisedEvents.date}">
                     <h:outputText value="#{organisedEvents.date}">
                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
                     </h:outputText>
@@ -64,20 +64,20 @@
         </h:form>
         <h2 style="font-size: 20px; margin-top: 2%">Joined Events</h2>
         <h:form id="myRegisteredEvents">
-            <p:dataTable var="registeredEvents" value="#{eventsManagedBean.registeredEvents}" widgetVar="customersTable3"
+            <p:dataTable var="registeredEvents" value="#{eventsManagedBean.registeredEvents}" widgetVar="regEventsTable"
                          rowKey="#{registeredEvents.id}"
                          emptyMessage="You did not register for any event" style="padding-top: 10px" multiViewState="true"
                          selectionMode="single" selection="#{eventsManagedBean.selectedEvent}"
                          resizableColumns="true" rows="3" paginator="true"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
                 <p:ajax event="rowSelect" update="myRegisteredEvents:registerDialog" oncomplete="PF('dialogRegEvents').show();" />>
-                <p:column headerText="Title">
+                <p:column headerText="Title" sortBy="#{registeredEvents.title}">
                     <h:outputText value="#{registeredEvents.title}"/>
                 </p:column>
-                <p:column headerText="Location">
+                <p:column headerText="Location" sortBy="#{registeredEvents.location}">
                     <h:outputText value="#{registeredEvents.location}"/>
                 </p:column>
-                <p:column headerText="Date">
+                <p:column headerText="Date" sortBy="#{registeredEvents.date}">
                     <h:outputText value="#{registeredEvents.date}">
                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
                     </h:outputText>
@@ -99,10 +99,6 @@
                     </h:outputText>
                     <h:outputText value="Description:" />
                     <h:outputText value="#{eventsManagedBean.selectedEvent.description}" style="margin-bottom:4px" />
-                    <p:commandButton value="Register" icon="pi pi-user-plus" ajax="false"
-                                     action="#{eventsManagedBean.registerEvent(eventsManagedBean.selectedEvent,authenticationManagedBean.userId)}"
-                                     rendered="#{not eventsManagedBean.isUserRegisteredForEvent(authenticationManagedBean.userId, eventsManagedBean.selectedEvent)}"
-                                     style="font-size:16px; color:white; box-shadow:none; background-color:#03AC13;" />
                     <p:commandButton value="Unregister" icon="pi pi-user-minus" ajax="false"
                                      action="#{eventsManagedBean.unregisterEvent(eventsManagedBean.selectedEvent,authenticationManagedBean.userId)}"
                                      rendered="#{eventsManagedBean.isUserRegisteredForEvent(authenticationManagedBean.userId, eventsManagedBean.selectedEvent)}"
