@@ -191,6 +191,7 @@ public class EventsManagedBean implements Serializable {
 
             eventSession.createEvent(account, event);
             accountSession.addNewEvent(account, event);
+            organisedEvents = accountSession.getOrganisedEvents(userId);
             return "events.xhtml?faces-redirect=true";
         }
     }
@@ -236,7 +237,6 @@ public class EventsManagedBean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
             int size = eventSession.retrieveParticipants(event.getId()).size();
-            System.out.println(size);
             if (eventSession.retrieveParticipants(event.getId()).size() > 0) {
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to delete event as there are already participants"));
                 return;
@@ -245,6 +245,7 @@ public class EventsManagedBean implements Serializable {
             organisedEvents.remove(event);
             accountSession.removeOrgEvent(account, event);
             eventSession.removeOrgEvent(event);
+            organisedEvents = accountSession.getOrganisedEvents(userId);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Successfully deleted event"));
         } catch (Exception e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to delete event"));
