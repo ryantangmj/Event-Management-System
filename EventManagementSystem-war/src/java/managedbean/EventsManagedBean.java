@@ -57,7 +57,7 @@ public class EventsManagedBean implements Serializable {
 
     public EventsManagedBean() {
     }
-    
+
     @PostConstruct
     public void init() {
         if (events.size() == 0) {
@@ -67,7 +67,7 @@ public class EventsManagedBean implements Serializable {
             registeredEvents = accountSession.getRegisteredEvents(userId);
         }
     }
-    
+
     public List<Event> getRegisteredEvents() {
         return registeredEvents;
     }
@@ -210,11 +210,15 @@ public class EventsManagedBean implements Serializable {
     public void registerEvent(Event event, Long userId) {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
-            account = accountSession.getAccount(userId);
-            eventSession.addParticipant(account, selectedEvent);
-            accountSession.joinNewEvent(account, selectedEvent);
-            registeredEvents = accountSession.getRegisteredEvents(userId);
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Successfully registered for event"));
+            if (event.getDeadline().before(new Date())) {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Can't register, it is pass the event registration deadline"));
+            } else {
+                account = accountSession.getAccount(userId);
+                eventSession.addParticipant(account, selectedEvent);
+                accountSession.joinNewEvent(account, selectedEvent);
+                registeredEvents = accountSession.getRegisteredEvents(userId);
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Successfully registered for event"));
+            }    
         } catch (Exception e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to register for event"));
         }
@@ -223,13 +227,17 @@ public class EventsManagedBean implements Serializable {
     public void unregisterEvent(Event event, Long userId) {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
-            account = accountSession.getAccount(userId);
-            eventSession.removeParticipant(account, selectedEvent);
-            accountSession.removeEvent(account, selectedEvent);
-            registeredEvents = accountSession.getRegisteredEvents(userId);
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Successfully unregistered from event"));
+            if (event.getDeadline().before(new Date())) {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Can't unregister, it is pass the event registration deadline"));
+            } else {
+                account = accountSession.getAccount(userId);
+                eventSession.removeParticipant(account, selectedEvent);
+                accountSession.removeEvent(account, selectedEvent);
+                registeredEvents = accountSession.getRegisteredEvents(userId);
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Successfully unregistered from event"));
+            }
         } catch (Exception e) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to register for event"));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to unregister from event"));
         }
     }
 
