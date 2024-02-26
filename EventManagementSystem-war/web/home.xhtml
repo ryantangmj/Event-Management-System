@@ -23,7 +23,7 @@
                 <f:facet name="header">
                     <p:outputPanel>
                         <h:outputText value="Search all fields:"/>
-                        <p:inputText id="globalFilter" onkeyup="PF('eventsTable').filter()" style="width:150px"
+                        <p:inputText id="globalFilter" onkeyup="PF('eventsTable').filter()" style="width:150px; margin-top: 1%"
                                      placeholder="Enter keyword"/>
                     </p:outputPanel>
                 </f:facet>
@@ -38,12 +38,12 @@
                     <h:outputText style="vertical-align: middle; margin-left: .5rem"
                                   value="#{event.location}"/>
                 </p:column>
-
-                <p:column headerText="Date" 
+                <p:column headerText="Date" filterBy="#{event.date}" filterMatchMode="contains"
                           sortBy="#{event.date}">
                     <h:outputText style="vertical-align: middle; margin-left: .5rem"
                                   value="#{event.date}">
-                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
+
+                        <f:convertDateTime pattern="MMM dd yyyy HH:mm" timeZone="Asia/Singapore"/>
                     </h:outputText>
                 </p:column>
             </p:dataTable>
