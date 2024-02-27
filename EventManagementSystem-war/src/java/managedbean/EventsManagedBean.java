@@ -54,6 +54,8 @@ public class EventsManagedBean implements Serializable {
     @Future
     private Date deadline;
     private Event selectedEvent;
+    private List<Account> participants = new ArrayList<Account>();
+    private List<Account> attendees = new ArrayList<Account>();
 
     public EventsManagedBean() {
     }
@@ -66,6 +68,22 @@ public class EventsManagedBean implements Serializable {
             organisedEvents = accountSession.getOrganisedEvents(userId);
             registeredEvents = accountSession.getRegisteredEvents(userId);
         }
+    }
+
+    public List<Account> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<Account> participants) {
+        this.participants = participants;
+    }
+
+    public List<Account> getAttendees() {
+        return attendees;
+    }
+
+    public void setAttendees(List<Account> attendees) {
+        this.attendees = attendees;
     }
 
     public List<Event> getRegisteredEvents() {
@@ -218,7 +236,7 @@ public class EventsManagedBean implements Serializable {
                 accountSession.joinNewEvent(account, selectedEvent);
                 registeredEvents = accountSession.getRegisteredEvents(userId);
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Successfully registered for event"));
-            }    
+            }
         } catch (Exception e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to register for event"));
         }
@@ -259,8 +277,10 @@ public class EventsManagedBean implements Serializable {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to delete event"));
         }
     }
-    
+
     public String navigateToAttendance(Long eventId) {
+        attendees = new ArrayList<Account>();
+        participants = eventSession.retrieveParticipants(eventId);
         return "/attendance.xhtml?faces-redirect=true&eventId=" + eventId;
     }
 }

@@ -39,7 +39,7 @@ public class Event implements Serializable {
     private Account organiser;
     @ManyToMany(mappedBy="joinedEvents")
     private List<Account> participants = new ArrayList<Account>();
-    @ManyToMany(mappedBy="attendedEvents")
+    @ManyToMany
     private List<Account> attendees = new ArrayList<Account>();
     
     /**

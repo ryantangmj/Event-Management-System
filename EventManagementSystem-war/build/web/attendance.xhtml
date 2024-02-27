@@ -8,48 +8,18 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="title">
-        Create Event
+        Attendance
     </ui:define>
     <ui:define name="content">
-        <h1>Create Event</h1><br />
-        <subtitle>Crafting Moments, Creating Memories.</subtitle>
+        <h1>Mark/View Attendance</h1><br />
+        <subtitle>Keep track of who turned up for your events.</subtitle>
         <h:form style="margin-top: 36px;">       
-            <h:panelGrid id="details">
-                <p:growl id="growl" showDetail="true" sticky="true"/>
-                <h2 style="margin-top: -5%">Title</h2>
-                <p:inputText id="title" style='width: 100%; margin-top: -5%; margin-bottom: -5%'
-                             value="#{eventsManagedBean.title}"
-                             required="true" 
-                             requiredMessage="Name is required."
-                             /><br/>
-                <h2>Description</h2>
-                <p:inputTextarea rows="6" cols="33" id="description" style='width: 100%; margin-top: -5%; margin-bottom: -5%'
-                                 value="#{eventsManagedBean.description}"
-                                 required="true" 
-                                 requiredMessage="Description is required."/><br/>
-                <h2>Location</h2> 
-                <p:inputText id="location" style='width: 100%; margin-top: -5%; margin-bottom: -5%'
-                             value="#{eventsManagedBean.location}" required="true" 
-                             requiredMessage="Location is required."/><br/>
-                <h2>Date</h2> 
-                <p:datePicker monthNavigator="true" yearNavigator="true" showWeek="true" id="date"
-                              mindate="#{eventsManagedBean.currentDate}" showTime="true"
-                              style='margin-top: -5%; margin-bottom: -5%; width: 100%'
-                              value="#{eventsManagedBean.date}"
-                              required="true" 
-                              requiredMessage="Event date is required.">
-                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
-                </p:datePicker><br/>
-                <h2>Deadline</h2> 
-                <p:datePicker monthNavigator="true" yearNavigator="true" showWeek="true" id="deadline"
-                              mindate="#{eventsManagedBean.currentDate}" showTime="true"
-                              style='margin-top: -5%; margin-bottom: -5%; width: 100%'
-                              value="#{eventsManagedBean.deadline}"
-                              required="true" 
-                              requiredMessage="Deadline is required.">
-                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
-                </p:datePicker><br/>
-            </h:panelGrid>
+            <p:growl id="growl" showDetail="true" sticky="true"/>
+            <p:selectManyCheckbox value="#{eventsManagedBean.participants}" layout="pageDirection"
+                                  columns="1" styleClass="grid-checkbox">
+                <f:selectItems value="#{eventsManagedBean.participants}" var="participant" itemLabel="#{participant}"
+                               itemValue="#{participant}"/>
+            </p:selectManyCheckbox>
             <p:commandButton value="Add Event" 
                              action="#{eventsManagedBean.createEvent(authenticationManagedBean.userId)}"
                              update="growl @form"

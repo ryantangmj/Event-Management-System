@@ -33,7 +33,7 @@ public class Account implements Serializable {
     private List<Event> organisedEvents = new ArrayList<Event>();
     @ManyToMany
     private List<Event> joinedEvents = new ArrayList<Event>();
-    @ManyToMany
+    @ManyToMany(mappedBy="attendees")
     private List<Event> attendedEvents = new ArrayList<Event>();
     
     /**
