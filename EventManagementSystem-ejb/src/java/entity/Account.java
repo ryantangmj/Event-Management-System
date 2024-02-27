@@ -33,6 +33,8 @@ public class Account implements Serializable {
     private List<Event> organisedEvents = new ArrayList<Event>();
     @ManyToMany
     private List<Event> joinedEvents = new ArrayList<Event>();
+    @ManyToMany
+    private List<Event> attendedEvents = new ArrayList<Event>();
     
     /**
      * Get the value of password
@@ -49,6 +51,14 @@ public class Account implements Serializable {
 
     public void setJoinedEvents(List<Event> joinedEvents) {
         this.joinedEvents = joinedEvents;
+    }
+
+    public List<Event> getAttendedEvents() {
+        return attendedEvents;
+    }
+
+    public void setAttendedEvents(List<Event> attendedEvents) {
+        this.attendedEvents = attendedEvents;
     }
     
     /**

@@ -259,4 +259,8 @@ public class EventsManagedBean implements Serializable {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to delete event"));
         }
     }
+    
+    public String navigateToAttendance(Long eventId) {
+        return "/attendance.xhtml?faces-redirect=true&eventId=" + eventId;
+    }
 }

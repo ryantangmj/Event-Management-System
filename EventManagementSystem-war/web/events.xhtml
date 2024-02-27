@@ -58,7 +58,11 @@
                     <h:outputText value="#{eventsManagedBean.selectedEvent.description}" style="margin-bottom:4px" />
                     <p:commandButton value="Delete" icon="pi pi-trash" ajax="false"
                                      action="#{eventsManagedBean.deleteEvent(eventsManagedBean.selectedEvent, authenticationManagedBean.userId)}" 
-                                     style="font-size:16px; color:white; box-shadow:none; background-color:#B90E0A;"/>
+                                     style="font-size:16px; color:white; box-shadow:none; background-color:#B90E0A; margin-top: 3%"/>
+                    <p:commandButton value="Attendance" icon="pi pi-check-square" ajax="false"
+                                     action="#{eventsManagedBean.navigateToAttendance(eventsManagedBean.selectedEvent.id)}" 
+                                     style="font-size:16px; color:white; box-shadow:none; background-color:#6f4d8e; margin-top: 3%"/>
+
                 </h:panelGrid>
             </p:dialog>
         </h:form>

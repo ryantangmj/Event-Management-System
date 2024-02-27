@@ -39,6 +39,8 @@ public class Event implements Serializable {
     private Account organiser;
     @ManyToMany(mappedBy="joinedEvents")
     private List<Account> participants = new ArrayList<Account>();
+    @ManyToMany(mappedBy="attendedEvents")
+    private List<Account> attendees = new ArrayList<Account>();
     
     /**
      * Get the value of organiser
@@ -65,6 +67,14 @@ public class Event implements Serializable {
 
     public void setParticipants(List<Account> participants) {
         this.participants = participants;
+    }
+
+    public List<Account> getAttendees() {
+        return attendees;
+    }
+
+    public void setAttendees(List<Account> attendees) {
+        this.attendees = attendees;
     }
 
     /**
