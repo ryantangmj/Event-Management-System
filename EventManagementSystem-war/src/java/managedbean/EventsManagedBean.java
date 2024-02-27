@@ -54,6 +54,27 @@ public class EventsManagedBean implements Serializable {
     @Future
     private Date deadline;
     private Event selectedEvent;
+    
+    private Long eventId;
+
+    /**
+     * Get the value of eventId
+     *
+     * @return the value of eventId
+     */
+    public Long getEventId() {
+        return eventId;
+    }
+
+    /**
+     * Set the value of eventId
+     *
+     * @param eventId new value of eventId
+     */
+    public void setEventId(Long eventId) {
+        this.eventId = eventId;
+    }
+
     private List<Account> participants = new ArrayList<Account>();
     private List<Account> attendees = new ArrayList<Account>();
 
@@ -277,10 +298,30 @@ public class EventsManagedBean implements Serializable {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to delete event"));
         }
     }
+    
+    public void loadSelectedEvent() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            selectedEvent = eventSession.getEvent(eventId);
+            participants = eventSession.retrieveParticipants(eventId);
+            attendees = eventSession.retrieveAttendees(eventId);
+        } catch (Exception e) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to load account"));
+        }
+    }
+    
+    public void updateAttendance() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            accountSession.updateAttendees(attendees, selectedEvent);
+            eventSession.updateAttendees(attendees, selectedEvent);
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Successfully updated event"));
+        } catch (Exception e) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to delete event"));
+        }
+    }
 
     public String navigateToAttendance(Long eventId) {
-        attendees = new ArrayList<Account>();
-        participants = eventSession.retrieveParticipants(eventId);
         return "/attendance.xhtml?faces-redirect=true&eventId=" + eventId;
     }
 }

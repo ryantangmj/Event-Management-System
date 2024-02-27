@@ -11,21 +11,34 @@
         Attendance
     </ui:define>
     <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="eventId" value="#{eventsManagedBean.eventId}" />
+            <f:event type="preRenderView"
+                     listener="#{eventsManagedBean.loadSelectedEvent}"/>
+        </f:metadata>
         <h1>Mark/View Attendance</h1><br />
         <subtitle>Keep track of who turned up for your events.</subtitle>
         <h:form style="margin-top: 36px;">       
             <p:growl id="growl" showDetail="true" sticky="true"/>
-            <p:selectManyCheckbox value="#{eventsManagedBean.participants}" layout="pageDirection"
-                                  columns="1" styleClass="grid-checkbox">
-                <f:selectItems value="#{eventsManagedBean.participants}" var="participant" itemLabel="#{participant}"
-                               itemValue="#{participant}"/>
-            </p:selectManyCheckbox>
-            <p:commandButton value="Add Event" 
-                             action="#{eventsManagedBean.createEvent(authenticationManagedBean.userId)}"
-                             update="growl @form"
-                             icon="pi pi-calendar-plus"
-                             style="font-size:16px; margin-top: 15px; background-color:#6f4d8e; color:white; text-shadow:none; text-align: center;
-                             height:40px; float:right"/>
+            <h:form id="attendanceForm">
+                <p:dataTable var="participant" value="#{eventsManagedBean.participants}"
+                             selection="#{eventsManagedBean.attendees}" rowKey="#{participant.id}" emptyMessage="No User Signed up">
+                    <p:column selectionMode="multiple" style="width:2em;text-align:center"/>
+                    <p:column headerText="Name">
+                        #{participant.name}
+                    </p:column>
+                    <p:column headerText="Phone Number">
+                        #{participant.contactDetails}
+                    </p:column>
+                    <p:column headerText="Email">
+                        #{participant.email}
+                    </p:column>
+                </p:dataTable>
+                <p:commandButton value="Update Attendance" action="#{eventsManagedBean.updateAttendance}"
+                                 update=":attendanceForm" ajax="false" icon="pi pi-check-square" 
+                                 style="font-size:16px; margin-top: 20px; background-color:#6f4d8e; color:white; text-shadow:none; text-align: center;
+                                 height:40px; float:right"/>
+            </h:form>
         </h:form>
     </ui:define>
     <ui:define name="image">

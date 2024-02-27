@@ -128,4 +128,15 @@ public class AccountSession implements AccountSessionLocal {
         Account account = em.find(Account.class, id);
         return account.getJoinedEvents();
     }
+
+    @Override
+    public void updateAttendees(List<Account> accounts, Event e) {
+        for (Account a: accounts) {
+            if (!a.getAttendedEvents().contains(e)) {
+                List<Event> events = a.getAttendedEvents();
+                events.add(e);
+                a.setAttendedEvents(events);
+            }
+        }
+    }
 }

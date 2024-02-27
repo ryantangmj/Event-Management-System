@@ -23,9 +23,13 @@ public interface EventSessionLocal {
     
     public void removeParticipant(Account a, Event e);
     
+    public void updateAttendees(List<Account> a, Event e);
+    
     public Event getEvent(Long id);
     
     public List<Event> getAllEvents();
     
     public List<Account> retrieveParticipants(Long id);
+    
+    public List<Account> retrieveAttendees(Long id);
 }

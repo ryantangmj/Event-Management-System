@@ -82,4 +82,30 @@ public class EventSession implements EventSessionLocal {
         Event event = em.find(Event.class, id);
         return event;
     }
+
+    @Override
+    public void updateAttendees(List<Account> accounts, Event e) {
+        e = em.merge(e);
+        if (accounts == null) {
+            e.setAttendees(new ArrayList<Account>());
+        } else {
+            for (Account a: accounts) {
+                em.merge(a);
+            }
+            System.out.println("SIze: " + accounts.size());
+            e.setAttendees(accounts);
+        }
+
+        em.merge(e);
+    }
+
+    @Override
+    public List<Account> retrieveAttendees(Long id) {
+        try {
+            Event e = em.find(Event.class, id);
+            return e.getAttendees();
+        } catch (Exception e) {
+            return new ArrayList<Account>();
+        }
+    }
 }
