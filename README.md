@@ -45,7 +45,7 @@ To run Event Genesis, you'll need to set up the following:
 
 ### Pages
 **Home Page**
-<img src="https://github.com/ryantangmj/Event-Management-System/assets/110431837/9f3c72db-4915-4d82-b433-22032210d1af" width="350"/>
+![Home Page](https://github.com/ryantangmj/Event-Management-System/raw/main/assets/110431837/9f3c72db-4915-4d82-b433-22032210d1af.png)
 
 ### Features
 Event Genesis is designed with an array of features to enhance user engagement and streamline event management:
