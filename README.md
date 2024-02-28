@@ -7,6 +7,7 @@
 - [Getting Started](#getting-started)
   - [Requirements](#requirements)
   - [Installation](#installation)
+- [Pages](#pages)
 - [Features](#features)
 - [Contributing](#contributing)
 
@@ -41,6 +42,10 @@ To run Event Genesis, you'll need to set up the following:
 3.	Set up your Java DB instance with the name EventManagementDB.
 4.	Update the database connection settings in the application to match your username and password.
 5.	Deploy the application to a Java EE compatible server (e.g., GlassFish, WildFly).
+
+### Pages
+**Home Page**
+<img src="(https://github.com/ryantangmj/Event-Management-System/assets/110431837/9f3c72db-4915-4d82-b433-22032210d1af)" width="350"/>
 
 ### Features
 Event Genesis is designed with an array of features to enhance user engagement and streamline event management:
