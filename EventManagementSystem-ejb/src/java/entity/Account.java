@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.servlet.http.Part;
 
 /**
  *
@@ -29,18 +30,22 @@ public class Account implements Serializable {
     private String contactDetails;
     private String email;
     private String password;
+    private byte[] profilePicContent;
     @OneToMany (mappedBy="organiser")
     private List<Event> organisedEvents = new ArrayList<Event>();
     @ManyToMany
     private List<Event> joinedEvents = new ArrayList<Event>();
     @ManyToMany(mappedBy="attendees")
     private List<Event> attendedEvents = new ArrayList<Event>();
-    
-    /**
-     * Get the value of password
-     *
-     * @return the value of password
-     */
+
+    public byte[] getProfilePicContent() {
+        return profilePicContent;
+    }
+
+    public void setProfilePicContent(byte[] profilePicContent) {
+        this.profilePicContent = profilePicContent;
+    }
+
     public String getPassword() {
         return password;
     }

@@ -6,13 +6,26 @@ package managedbean;
 
 import entity.Account;
 import entity.Event;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import javax.inject.Named;
-import javax.faces.view.ViewScoped;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.servlet.ServletContext;
+import javax.servlet.http.Part;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import session.AccountSessionLocal;
 
 /**
@@ -22,6 +35,7 @@ import session.AccountSessionLocal;
 @Named(value = "accountManagedBean")
 @ViewScoped
 public class AccountManagedBean implements Serializable {
+
     @EJB
     private AccountSessionLocal accountSession;
 
@@ -32,11 +46,38 @@ public class AccountManagedBean implements Serializable {
     private String email;
     private String password;
     private String validatePassword;
+    private Part uploadedfile;
+    private String filename = "";
+    private byte[] fileContent;
     private String error;
     private List<Event> organisedEvents;
     private List<Event> joinedEvents;
 
     public AccountManagedBean() {
+    }
+
+    public byte[] getFileContent() {
+        return fileContent;
+    }
+
+    public void setFileContent(byte[] fileContent) {
+        this.fileContent = fileContent;
+    }
+
+    public Part getUploadedfile() {
+        return uploadedfile;
+    }
+
+    public void setUploadedfile(Part uploadedfile) {
+        this.uploadedfile = uploadedfile;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
     public List<Event> getJoinedEvents() {
@@ -128,17 +169,19 @@ public class AccountManagedBean implements Serializable {
             email = this.account.getEmail();
             password = this.account.getPassword();
             validatePassword = password;
+            fileContent = this.account.getProfilePicContent();
         } catch (Exception e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to load account"));
         }
     }
-    
+
     public void editAccount() {
         FacesContext context = FacesContext.getCurrentInstance();
         account.setName(name);
         account.setContactDetails(contactDetails);
         account.setEmail(email);
         account.setPassword(password);
+        account.setProfilePicContent(fileContent);
 
         try {
             accountSession.updateAccount(account);
@@ -148,12 +191,50 @@ public class AccountManagedBean implements Serializable {
         }
     }
 
+    public byte[] toByteArray(InputStream input) throws IOException {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int length;
+        while ((length = input.read(buffer)) != -1) {
+            output.write(buffer, 0, length);
+        }
+
+        return output.toByteArray();
+    }
+
+    public void upload() throws IOException {
+        ServletContext ctx = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+
+        //get the deployment path
+        String UPLOAD_DIRECTORY = ctx.getRealPath("/") + "upload/";
+        File uploadDir = new File(UPLOAD_DIRECTORY);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs(); // This will create the directory and any necessary parent directories.
+        }
+        System.out.println("#UPLOAD_DIRECTORY : " + UPLOAD_DIRECTORY);
+
+        //debug purposes
+        setFilename(Paths.get(uploadedfile.getSubmittedFileName()).getFileName().toString());
+        System.out.println("filename: " + getFilename());
+        //---------------------
+
+        //replace existing file
+        Path path = Paths.get(UPLOAD_DIRECTORY + getFilename());
+        InputStream bytes = uploadedfile.getInputStream();
+        Files.copy(bytes, path, StandardCopyOption.REPLACE_EXISTING);
+
+        String fileName = Paths.get(uploadedfile.getSubmittedFileName()).getFileName().toString();
+        String contentType = uploadedfile.getContentType();
+        fileContent = toByteArray(uploadedfile.getInputStream());
+    }
+
     public String createAccount() {
         Account account = new Account();
         account.setName(name);
         account.setContactDetails(contactDetails);
         account.setEmail(email);
         account.setPassword(password);
+        account.setProfilePicContent(fileContent);
 
         accountSession.createAccount(account);
         return "index.xhtml?faces-redirect=true";

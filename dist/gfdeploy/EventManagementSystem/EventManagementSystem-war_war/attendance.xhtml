@@ -22,7 +22,7 @@
             <p:growl id="growl" showDetail="true" sticky="true"/>
             <h:form id="attendanceForm">
                 <p:dataTable var="participant" value="#{eventsManagedBean.participants}"
-                             selection="#{eventsManagedBean.attendees}" rowKey="#{participant.id}" emptyMessage="No User Signed up">
+                             selection="#{eventsManagedBean.attendees}" rowKey="#{participant.id}" emptyMessage="No one has signed up for the event yet.">
                     <p:column selectionMode="multiple" style="width:2em;text-align:center"/>
                     <p:column headerText="Name">
                         #{participant.name}
