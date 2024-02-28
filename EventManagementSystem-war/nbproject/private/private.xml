@@ -4,8 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/admin/Documents/GitHub/Event-Management-System/EventManagementSystem-war/web/profile.xhtml</file>
-            <file>file:/Users/admin/Documents/GitHub/Event-Management-System/EventManagementSystem-war/web/createAccount.xhtml</file>
+            <file>file:/Users/admin/Documents/GitHub/Event-Management-System/EventManagementSystem-war/src/java/managedbean/EditAccountManagedBean.java</file>
             <file>file:/Users/admin/Documents/GitHub/Event-Management-System/EventManagementSystem-war/src/java/managedbean/AccountManagedBean.java</file>
+            <file>file:/Users/admin/Documents/GitHub/Event-Management-System/EventManagementSystem-war/web/createAccount.xhtml</file>
         </group>
     </open-files>
 </project-private>

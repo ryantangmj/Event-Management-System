@@ -5,6 +5,7 @@
         <group>
             <file>file:/Users/admin/Documents/GitHub/Event-Management-System/EventManagementSystem-ejb/src/java/session/AccountSession.java</file>
             <file>file:/Users/admin/Documents/GitHub/Event-Management-System/EventManagementSystem-ejb/src/java/entity/Account.java</file>
+            <file>file:/Users/admin/Documents/GitHub/Event-Management-System/EventManagementSystem-ejb/src/java/session/AccountSessionLocal.java</file>
         </group>
     </open-files>
 </project-private>
