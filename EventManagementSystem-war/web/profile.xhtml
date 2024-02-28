@@ -12,42 +12,44 @@
     </ui:define>
     <ui:define name="content">
         <f:metadata>
-            <f:viewParam name="accountId" value="#{accountManagedBean.accountId}" />
+            <f:viewParam name="accountId" value="#{editAccountManagedBean.accountId}" />
             <f:event type="preRenderView"
-                     listener="#{accountManagedBean.loadSelectedCustomer}"/>
+                     listener="#{editAccountManagedBean.loadSelectedCustomer}"/>
         </f:metadata>
         <h1>Edit Profile</h1><br />
         <subtitle>Edit account details here</subtitle>
         <h:form id="editProfile" style="margin-top: 36px;" enctype="multipart/form-data">       
             <p:growl id="growl" showDetail="true" sticky="true"/>  
             <h:panelGrid id="details">
-<!--                <h2 style="margin-top: -5%">Profile Picture</h2>-->
+                <h2>Profile Picture</h2>
+                <p:graphicImage  style="width:500px; height:auto; position:relative; margin-top:1%;"
+                                 value="#{editAccountManagedBean.fileContent}" cache="false"/>
                 <h2>Name</h2>
                 <p:inputText id="name" style='width: 100%; margin-top: -5%; margin-bottom: -5%'
-                             value="#{accountManagedBean.name}"
+                             value="#{editAccountManagedBean.name}"
                              required="true" 
                              requiredMessage="Name is required."
                              /><br/>
                 <h2>Phone Number</h2>
                 <p:inputText id="phone" style='width: 100%; margin-top: -5%; margin-bottom: -5%'
-                             value="#{accountManagedBean.contactDetails}"
+                             value="#{editAccountManagedBean.contactDetails}"
                              required="true" 
                              requiredMessage="Phone number is required."/><br/>
                 <h2>Email</h2> <p:inputText id="email" style='width: 100%; margin-top: -5%; margin-bottom: -5%'
-                                            value="#{accountManagedBean.email}" required="true" 
+                                            value="#{editAccountManagedBean.email}" required="true" 
                                             requiredMessage="Email is required."/><br/>
-                <h2>Password</h2> <p:password id="pwd1" value="#{accountManagedBean.password}"
+                <h2>Password</h2> <p:password id="pwd1" value="#{editAccountManagedBean.password}"
                                               toggleMask="true" redisplay="true" match="pwd2" 
                                               label="Password 1" required="true"
                                               style='margin-top: -5%; margin-bottom: -5%'
                                               /><br/>
-                <h2>Retype-password</h2> <p:password id="pwd2" value="#{accountManagedBean.validatePassword}"
+                <h2>Retype-password</h2> <p:password id="pwd2" value="#{editAccountManagedBean.validatePassword}"
                                                      toggleMask="true" redisplay="true" 
                                                      label="Password 2" required="true"
                                                      style='margin-top: -5%; margin-bottom: -5%'/>
             </h:panelGrid>
             <p:commandButton value="Update Account" 
-                             actionListener="#{accountManagedBean.editAccount}"
+                             actionListener="#{editAccountManagedBean.editAccount}"
                              update="@form"
                              icon="pi pi-user-edit"
                              style="font-size:16px; margin-top: 20px; background-color:#6f4d8e; color:white; text-shadow:none; text-align: center;

@@ -6,7 +6,6 @@ package managedbean;
 
 import entity.Account;
 import entity.Event;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +23,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import session.AccountSessionLocal;
 
@@ -231,7 +229,7 @@ public class AccountManagedBean implements Serializable {
     public String createAccount() {
         if (accountSession.sameEmail(email)) {
             FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage("Error", "This email already has a registered account"));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "This email already has a registered account"));
             return "createAccount.xhtml";
         }
         
