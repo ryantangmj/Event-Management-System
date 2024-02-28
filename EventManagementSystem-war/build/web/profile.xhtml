@@ -22,8 +22,14 @@
             <p:growl id="growl" showDetail="true" sticky="true"/>  
             <h:panelGrid id="details">
                 <h2>Profile Picture</h2>
-                <p:graphicImage  style="width:500px; height:auto; position:relative; margin-top:1%;"
-                                 value="#{editAccountManagedBean.fileContent}" cache="false"/>
+                <p:graphicImage style="width:500px; height:auto; position:relative; margin-top:1%;"
+                                value="#{editAccountManagedBean.fileContent}" 
+                                cache="false"
+                                rendered="#{not empty editAccountManagedBean.fileContent}">
+                    <f:param name="version" value="#{editAccountManagedBean.imageVersion}" />
+                </p:graphicImage>
+                <h:inputFile value="#{editAccountManagedBean.uploadedfile}" id="fileUpload" />
+                <h:commandButton value="Upload" action="#{editAccountManagedBean.upload}"/>
                 <h2>Name</h2>
                 <p:inputText id="name" style='width: 100%; margin-top: -5%; margin-bottom: -5%'
                              value="#{editAccountManagedBean.name}"

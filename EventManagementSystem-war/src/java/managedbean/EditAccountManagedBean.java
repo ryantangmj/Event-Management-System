@@ -44,6 +44,19 @@ public class EditAccountManagedBean implements Serializable {
     private Part uploadedfile;
     private String filename = "";
     private byte[] fileContent;
+    private long imageVersion = System.currentTimeMillis();
+
+    public long getImageVersion() {
+        return imageVersion;
+    }
+
+    public void setImageVersion(long imageVersion) {
+        this.imageVersion = imageVersion;
+    }
+
+    public void updateImageVersion() {
+        this.imageVersion = System.currentTimeMillis();
+    }
 
     public Long getAccountId() {
         return accountId;
@@ -130,7 +143,7 @@ public class EditAccountManagedBean implements Serializable {
      */
     public EditAccountManagedBean() {
     }
-    
+
     public void loadSelectedCustomer() {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
@@ -174,29 +187,10 @@ public class EditAccountManagedBean implements Serializable {
     }
 
     public void upload() throws IOException {
-        ServletContext ctx = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-
-        //get the deployment path
-        String UPLOAD_DIRECTORY = ctx.getRealPath("/") + "upload/";
-        File uploadDir = new File(UPLOAD_DIRECTORY);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdirs(); // This will create the directory and any necessary parent directories.
-        }
-        System.out.println("#UPLOAD_DIRECTORY : " + UPLOAD_DIRECTORY);
-
-        //debug purposes
-        setFilename(Paths.get(uploadedfile.getSubmittedFileName()).getFileName().toString());
-        System.out.println("filename: " + getFilename());
-        //---------------------
-
-        //replace existing file
-        Path path = Paths.get(UPLOAD_DIRECTORY + getFilename());
-        InputStream bytes = uploadedfile.getInputStream();
-        Files.copy(bytes, path, StandardCopyOption.REPLACE_EXISTING);
-
-        String fileName = Paths.get(uploadedfile.getSubmittedFileName()).getFileName().toString();
-        String contentType = uploadedfile.getContentType();
         fileContent = toByteArray(uploadedfile.getInputStream());
+
+        account.setProfilePicContent(fileContent);
+        accountSession.updateAccount(account);
     }
 
 }
