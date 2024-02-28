@@ -45,7 +45,7 @@ To run Event Genesis, you'll need to set up the following:
 
 ### Pages
 Home Page
-<img src="https://github.com/ryantangmj/Event-Management-System/assets/110431837/9f3c72db-4915-4d82-b433-22032210d1af"/>
+<img src="https://github.com/ryantangmj/Event-Management-System/assets/110431837/598e1a42-cb61-40bf-be1f-776eb5ccbff4"/>
 My Events Page
 <img src="https://github.com/ryantangmj/Event-Management-System/assets/110431837/f9169310-0106-475f-b8c8-01c02be07e35"/>
 My Events Page (Details Dialog)
