@@ -45,11 +45,11 @@ To run Event Genesis, you'll need to set up the following:
 ### Features
 Event Genesis is designed with an array of features to enhance user engagement and streamline event management:
 
-**Search for Events**: Facilitates users in finding events that cater to their specific interests through a comprehensive search functionality.
-**Register/Unregister from Event**: Offers a straightforward process for users to sign up or withdraw from events.
-**Create New Event**: Allows organizers to introduce new events, detailing essential information such as date, time, location, and description.
-**Mark Attendance for Event**: Enables organisers to keep track of participant attendance, ensuring efficient event management.
-**Edit Profile**: Provides users with the capability to update their profile details, maintaining current and relevant information.
+- **Search for Events**: Facilitates users in finding events that cater to their specific interests through a comprehensive search functionality.
+- **Register/Unregister from Event**: Offers a straightforward process for users to sign up or withdraw from events.
+- **Create New Event**: Allows organizers to introduce new events, detailing essential information such as date, time, location, and description.
+- **Mark Attendance for Event**: Enables organisers to keep track of participant attendance, ensuring efficient event management.
+- **Edit Profile**: Provides users with the capability to update their profile details, maintaining current and relevant information.
 
 ### Contributing
 Contributions are what make the open-source community such a powerful platform for learning, inspiring, and creating. Any contributions you make are greatly appreciated.
