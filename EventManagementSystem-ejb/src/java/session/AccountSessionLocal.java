@@ -42,4 +42,6 @@ public interface AccountSessionLocal {
     public List<Event> getOrganisedEvents(Long id);
     
     public List<Event> getRegisteredEvents(Long id);
+    
+    public boolean sameEmail(String email);
 }

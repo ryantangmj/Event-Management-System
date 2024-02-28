@@ -19,31 +19,32 @@ import javax.persistence.Query;
  */
 @Stateless
 public class AccountSession implements AccountSessionLocal {
+
     @PersistenceContext(unitName = "EventManagementSystem-ejbPU")
     private EntityManager em;
-    
+
     @Override
     public void createAccount(Account a) {
         em.persist(a);
     }
-    
+
     @Override
     public Account getAccount(Long id) {
         return em.find(Account.class, id);
     }
-    
-    @Override 
+
+    @Override
     public String getName(Long id) {
         Account account = em.find(Account.class, id);
         return account.getName();
     }
-    
+
     @Override
     public String getContactDetails(Long id) {
         Account account = em.find(Account.class, id);
         return account.getContactDetails();
     }
-    
+
     @Override
     public void updateAccount(Account u) {
         Account oldU = getAccount(u.getId());
@@ -53,14 +54,14 @@ public class AccountSession implements AccountSessionLocal {
         oldU.setEmail(u.getEmail());
         oldU.setPassword(u.getPassword());
         oldU.setProfilePicContent(u.getProfilePicContent());
-        
+
         em.merge(oldU);
     }
-    
-    @Override 
+
+    @Override
     public boolean authenticateAccount(String email, String password) {
         Query q;
-        
+
         try {
             q = em.createQuery("SELECT a FROM Account a WHERE LOWER(a.email) =:email AND LOWER(a.password) =:password");
             q.setParameter("email", email);
@@ -79,7 +80,7 @@ public class AccountSession implements AccountSessionLocal {
         q.setParameter("email", email);
         q.setParameter("password", password);
         Account user = (Account) q.getSingleResult();
-        
+
         return user.getId();
     }
 
@@ -87,8 +88,8 @@ public class AccountSession implements AccountSessionLocal {
     public void addNewEvent(Account a, Event e) {
         List<Event> organisedEvents = a.getOrganisedEvents();
         organisedEvents.add(e);
-        a.setOrganisedEvents(organisedEvents); 
-        
+        a.setOrganisedEvents(organisedEvents);
+
         em.merge(a);
     }
 
@@ -96,7 +97,7 @@ public class AccountSession implements AccountSessionLocal {
     public void joinNewEvent(Account a, Event e) {
         List<Event> joinedEvents = a.getJoinedEvents();
         joinedEvents.add(e);
-        a.setJoinedEvents(joinedEvents);  
+        a.setJoinedEvents(joinedEvents);
 
         em.merge(a);
     }
@@ -105,16 +106,16 @@ public class AccountSession implements AccountSessionLocal {
     public void removeEvent(Account a, Event e) {
         List<Event> joinedEvents = a.getJoinedEvents();
         joinedEvents.remove(e);
-        a.setJoinedEvents(joinedEvents); 
+        a.setJoinedEvents(joinedEvents);
 
         em.merge(a);
     }
-    
+
     @Override
     public void removeOrgEvent(Account a, Event e) {
         List<Event> organisedEvents = a.getOrganisedEvents();
         organisedEvents.remove(e);
-        a.setOrganisedEvents(organisedEvents); 
+        a.setOrganisedEvents(organisedEvents);
 
         em.merge(a);
     }
@@ -133,12 +134,25 @@ public class AccountSession implements AccountSessionLocal {
 
     @Override
     public void updateAttendees(List<Account> accounts, Event e) {
-        for (Account a: accounts) {
+        for (Account a : accounts) {
             if (!a.getAttendedEvents().contains(e)) {
                 List<Event> events = a.getAttendedEvents();
                 events.add(e);
                 a.setAttendedEvents(events);
             }
+        }
+    }
+
+    @Override
+    public boolean sameEmail(String email) {
+        try {
+            Query q;
+            q = em.createQuery("SELECT a FROM Account a WHERE LOWER(a.email) LIKE :email");
+            q.setParameter("email", email);
+            Account user = (Account) q.getSingleResult();
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 }
