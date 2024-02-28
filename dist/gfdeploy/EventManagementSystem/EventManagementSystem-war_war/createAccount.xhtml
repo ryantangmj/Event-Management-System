@@ -52,7 +52,11 @@
                 <h2>Profile Picture</h2>
                 <h:inputFile value="#{accountManagedBean.uploadedfile}" />
                 <h:commandButton action="#{accountManagedBean.upload}" value="Upload"/>
-                <img style="width:500px; height:auto; position:relative; margin-top:1%;" alt="Your uploaded profile pic" src="upload/#{accountManagedBean.filename}" /><br/>
+                <p:graphicImage style="width:500px; height:auto; position:relative; margin-top:1%;"
+                                value="upload/#{accountManagedBean.filename}"
+                                cache="false"
+                                rendered="#{not empty accountManagedBean.fileContent}">
+                </p:graphicImage><br/>
                 <a href="index.xhtml" style="margin: 2px; font-size:15px; width:100%; font-family: 'DM Sans'; color: #1232A6;">
                     Have an account? Log in!
                 </a>
