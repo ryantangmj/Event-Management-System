@@ -306,7 +306,7 @@ public class EventsManagedBean implements Serializable {
             participants = eventSession.retrieveParticipants(eventId);
             attendees = eventSession.retrieveAttendees(eventId);
         } catch (Exception e) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to load account"));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to load event"));
         }
     }
     
@@ -315,9 +315,9 @@ public class EventsManagedBean implements Serializable {
         try {
             accountSession.updateAttendees(attendees, selectedEvent);
             eventSession.updateAttendees(attendees, selectedEvent);
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Successfully updated event"));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Successfully updated event's attendance"));
         } catch (Exception e) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to delete event"));
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to update event's attendance"));
         }
     }
 
