@@ -49,7 +49,7 @@ Home Page
 My Events Page
 <img src="https://github.com/ryantangmj/Event-Management-System/assets/110431837/f9169310-0106-475f-b8c8-01c02be07e35"/>
 My Events Page (Details Dialog)
-<img src="https://github.com/ryantangmj/Event-Management-System/assets/110431837/595b3514-3b17-4094-bfc1-1cadf971d5de"/>
+<img src="https://github.com/ryantangmj/Event-Management-System/assets/110431837/0a3c5802-2738-4efd-bdc7-bdac9ec9b105"/>
 Attendance Page
 <img src="https://github.com/ryantangmj/Event-Management-System/assets/110431837/7e6ed696-603a-40a8-94d5-40be24b6901b"/>
 Edit Profile Page
