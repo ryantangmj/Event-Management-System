@@ -56,14 +56,15 @@
                     </h:outputText>
                     <h:outputText value="Description:" />
                     <h:outputText value="#{eventsManagedBean.selectedEvent.description}" style="margin-bottom:4px" />
-                    <p:commandButton value="Delete" icon="pi pi-trash" ajax="false"
-                                     action="#{eventsManagedBean.deleteEvent(eventsManagedBean.selectedEvent, authenticationManagedBean.userId)}" 
-                                     style="font-size:16px; color:white; box-shadow:none; background-color:#B90E0A; margin-top: 3%"/>
-                    <p:commandButton value="Attendance" icon="pi pi-check-square" ajax="false"
-                                     action="#{eventsManagedBean.navigateToAttendance(eventsManagedBean.selectedEvent.id)}" 
-                                     style="font-size:16px; color:white; box-shadow:none; background-color:#6f4d8e; margin-top: 3%"/>
-
                 </h:panelGrid>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 3%;">
+                    <p:commandButton value="Attendance" icon="pi pi-check-square" ajax="false"
+                                     action="#{eventsManagedBean.navigateToAttendance(eventsManagedBean.selectedEvent.id)}"
+                                     style="font-size:16px; color:white; box-shadow:none; background-color:#6f4d8e;"/>
+                    <p:commandButton value="Delete" icon="pi pi-trash" ajax="false"
+                                     action="#{eventsManagedBean.deleteEvent(eventsManagedBean.selectedEvent, authenticationManagedBean.userId)}"
+                                     style="font-size:16px; color:white; box-shadow:none; background-color:#B90E0A;"/>
+                </div>
             </p:dialog>
         </h:form>
         <h2 style="font-size: 20px; margin-top: 2%">Joined Events</h2>
