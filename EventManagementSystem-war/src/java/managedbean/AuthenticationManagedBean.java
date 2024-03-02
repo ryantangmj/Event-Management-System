@@ -84,6 +84,7 @@ public class AuthenticationManagedBean implements Serializable {
     }
     
     public String navigateToProfile() {
-        return "/profile.xhtml?faces-redirect=true&accountId=" + userId;
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("accountId", userId);
+        return "/profile.xhtml?faces-redirect=true";
     }
 }

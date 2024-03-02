@@ -302,6 +302,7 @@ public class EventsManagedBean implements Serializable {
     public void loadSelectedEvent() {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
+            eventId = (Long) context.getExternalContext().getSessionMap().get("eventId");
             selectedEvent = eventSession.getEvent(eventId);
             participants = eventSession.retrieveParticipants(eventId);
             attendees = eventSession.retrieveAttendees(eventId);
@@ -322,6 +323,7 @@ public class EventsManagedBean implements Serializable {
     }
 
     public String navigateToAttendance(Long eventId) {
-        return "/attendance.xhtml?faces-redirect=true&eventId=" + eventId;
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("eventId", eventId);
+        return "/attendance.xhtml?faces-redirect=true";
     }
 }

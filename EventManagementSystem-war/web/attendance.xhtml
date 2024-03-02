@@ -12,7 +12,6 @@
     </ui:define>
     <ui:define name="content">
         <f:metadata>
-            <f:viewParam name="eventId" value="#{eventsManagedBean.eventId}" />
             <f:event type="preRenderView"
                      listener="#{eventsManagedBean.loadSelectedEvent}"/>
         </f:metadata>

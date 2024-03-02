@@ -147,6 +147,7 @@ public class EditAccountManagedBean implements Serializable {
     public void loadSelectedCustomer() {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
+            accountId = (Long) context.getExternalContext().getSessionMap().get("accountId");
             this.account = accountSession.getAccount(accountId);
             name = this.account.getName();
             contactDetails = this.account.getContactDetails();

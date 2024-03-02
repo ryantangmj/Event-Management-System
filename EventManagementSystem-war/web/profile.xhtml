@@ -12,13 +12,12 @@
     </ui:define>
     <ui:define name="content">
         <f:metadata>
-            <f:viewParam name="accountId" value="#{editAccountManagedBean.accountId}" />
             <f:event type="preRenderView"
                      listener="#{editAccountManagedBean.loadSelectedCustomer}"/>
         </f:metadata>
         <h1>Edit Profile</h1><br />
         <subtitle>Edit account details here</subtitle>
-        <h:form id="editProfile" style="margin-top: 36px;" enctype="multipart/form-data">       
+        <h:form id="editProfile" style="margin-top: 8px;" enctype="multipart/form-data">       
             <p:growl id="growl" showDetail="true" sticky="true"/>  
             <h:panelGrid id="details">
                 <h2>Profile Picture</h2>
