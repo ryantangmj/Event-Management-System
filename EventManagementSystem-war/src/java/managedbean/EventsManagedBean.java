@@ -324,6 +324,6 @@ public class EventsManagedBean implements Serializable {
 
     public String navigateToAttendance(Long eventId) {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("eventId", eventId);
-        return "/attendance.xhtml?faces-redirect=true";
+        return "/pages/attendance.xhtml?faces-redirect=true";
     }
 }

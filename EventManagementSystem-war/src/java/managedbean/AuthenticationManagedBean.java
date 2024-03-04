@@ -58,7 +58,7 @@ public class AuthenticationManagedBean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         if (accountSession.authenticateAccount(email, password)) {
             userId = accountSession.getAccount(email, password);
-            return "home.xhtml?faces-redirect=true";
+            return "/pages/home.xhtml?faces-redirect=true";
         } else {
             email = null;
             password = null;
@@ -85,6 +85,6 @@ public class AuthenticationManagedBean implements Serializable {
     
     public String navigateToProfile() {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("accountId", userId);
-        return "/profile.xhtml?faces-redirect=true";
+        return "/pages/profile.xhtml?faces-redirect=true";
     }
 }

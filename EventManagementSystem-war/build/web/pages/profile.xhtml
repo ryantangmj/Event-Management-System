@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns="http://www.w3.org/1999/xhtml"
+                template="/layout/loggedIn.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        My Profile
+    </ui:define>
+    <ui:define name="content">
+        <f:metadata>
+            <f:event type="preRenderView"
+                     listener="#{editAccountManagedBean.loadSelectedCustomer}"/>
+        </f:metadata>
+        <h1>Edit Profile</h1><br />
+        <subtitle>Edit account details here</subtitle>
+        <h:form id="editProfile" style="margin-top: 8px;" enctype="multipart/form-data">       
+            <p:growl id="growl" showDetail="true" sticky="true"/>  
+            <h:panelGrid id="details">
+                <h2>Profile Picture</h2>
+                <p:graphicImage style="width:500px; height:auto; position:relative; margin-top:1%;"
+                                value="#{editAccountManagedBean.fileContent}" 
+                                cache="false"
+                                rendered="#{not empty editAccountManagedBean.fileContent}">
+                    <f:param name="version" value="#{editAccountManagedBean.imageVersion}" />
+                </p:graphicImage>
+                <h:inputFile value="#{editAccountManagedBean.uploadedfile}" id="fileUpload" />
+                <h:commandButton value="Upload" action="#{editAccountManagedBean.upload}"/>
+                <h2>Name</h2>
+                <p:inputText id="name" style='width: 100%; margin-top: -5%; margin-bottom: -5%'
+                             value="#{editAccountManagedBean.name}"
+                             required="true" 
+                             requiredMessage="Name is required."
+                             /><br/>
+                <h2>Phone Number</h2>
+                <p:inputText id="phone" style='width: 100%; margin-top: -5%; margin-bottom: -5%'
+                             value="#{editAccountManagedBean.contactDetails}"
+                             required="true" 
+                             requiredMessage="Phone number is required."/><br/>
+                <h2>Email</h2> 
+                <p:inputText id="email" style='width: 100%; margin-top: -5%; margin-bottom: -5%'
+                             value="#{editAccountManagedBean.email}" required="true" 
+                             requiredMessage="Email is required."
+                             validatorMessage="This is not a valid email">
+                    <f:validateRegex pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" />
+                </p:inputText><br/>
+                <h2>Password</h2> <p:password id="pwd1" value="#{editAccountManagedBean.password}"
+                                              toggleMask="true" redisplay="true" match="pwd2" 
+                                              label="Password 1" required="true"
+                                              style='margin-top: -5%; margin-bottom: -5%'
+                                              /><br/>
+                <h2>Retype-password</h2> <p:password id="pwd2" value="#{editAccountManagedBean.validatePassword}"
+                                                     toggleMask="true" redisplay="true" 
+                                                     label="Password 2" required="true"
+                                                     style='margin-top: -5%; margin-bottom: -5%'/>
+            </h:panelGrid>
+            <p:commandButton value="Update Account" 
+                             actionListener="#{editAccountManagedBean.editAccount}"
+                             update="@form"
+                             icon="pi pi-user-edit"
+                             style="font-size:16px; margin-top: 20px; background-color:#6f4d8e; color:white; text-shadow:none; text-align: center;
+                             height:40px; float:right"/>
+        </h:form>
+    </ui:define>
+    <ui:define name="image">
+        <img style="width:160px;  position:relative; margin-top:15%;"
+             src="../resources/images/profile.png" alt="profile"/>
+    </ui:define>
+    <ui:define name="button">
+        <h:form>
+            <p:commandButton value="Log Out" icon="pi pi-sign-out" ajax="false"
+                             action="#{authenticationManagedBean.logout}" 
+                             style="font-size:16px; color:white; box-shadow:none;
+                             background-color:#1232A6;"/>
+
+        </h:form>
+    </ui:define>
+    <ui:define name="nextPage">
+        <h:form>
+            <p:commandButton value="Home" icon="pi pi-home" ajax="false"
+                             action="home.xhtml?faces-redirect=true"
+                             style="font-size:16px; color:white; box-shadow:none;
+                             background-color:#1232A6;"/>
+            <p:commandButton value="My Events" icon="pi pi-list" ajax="false"
+                             action="events.xhtml?faces-redirect=true"
+                             style="font-size:16px; color:white; box-shadow:none;
+                             background-color:#1232A6;"/>
+        </h:form>
+    </ui:define>
+    <ui:define name="logo">
+        <img style="display:inline;height: 38px;width:48px;padding-right:12px;"
+             src="../resources/images/logo.png" alt="logo"
+             onerror="this.src='../resources/images/logo.png'"/>
+        <h1 style="display:inline;color:#FFFFFF;
+            border-bottom:0px">Event Genesis</h1>
+    </ui:define>
+</ui:composition>
