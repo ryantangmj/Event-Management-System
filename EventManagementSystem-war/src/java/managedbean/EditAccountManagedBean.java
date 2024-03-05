@@ -6,20 +6,14 @@ package managedbean;
 
 import entity.Account;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
+import javax.faces.view.ViewScoped;
 import javax.servlet.http.Part;
 import session.AccountSessionLocal;
 
@@ -28,7 +22,7 @@ import session.AccountSessionLocal;
  * @author admin
  */
 @Named(value = "editAccountManagedBean")
-@SessionScoped
+@ViewScoped
 public class EditAccountManagedBean implements Serializable {
 
     @EJB

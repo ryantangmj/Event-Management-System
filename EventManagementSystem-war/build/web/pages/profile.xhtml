@@ -23,7 +23,7 @@
                 <h2>Profile Picture</h2>
                 <p:graphicImage style="width:500px; height:auto; position:relative; margin-top:1%;"
                                 value="#{editAccountManagedBean.fileContent}" 
-                                cache="false"
+                                stream="false"
                                 rendered="#{not empty editAccountManagedBean.fileContent}">
                     <f:param name="version" value="#{editAccountManagedBean.imageVersion}" />
                 </p:graphicImage>
