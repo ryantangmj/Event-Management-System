@@ -23,7 +23,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
-import org.primefaces.model.StreamedContent;
 import session.AccountSessionLocal;
 
 /**

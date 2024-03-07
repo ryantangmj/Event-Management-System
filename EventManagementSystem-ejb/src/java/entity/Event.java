@@ -41,25 +41,14 @@ public class Event implements Serializable {
     private List<Account> participants = new ArrayList<Account>();
     @ManyToMany
     private List<Account> attendees = new ArrayList<Account>();
-    
-    /**
-     * Get the value of organiser
-     *
-     * @return the value of organiser
-     */
+
     public Account getOrganiser() {
         return organiser;
     }
 
-    /**
-     * Set the value of organiser
-     *
-     * @param organiser new value of organiser
-     */
     public void setOrganiser(Account organiser) {
         this.organiser = organiser;
     }
-
 
     public List<Account> getParticipants() {
         return participants;
@@ -77,100 +66,45 @@ public class Event implements Serializable {
         this.attendees = attendees;
     }
 
-    /**
-     * Get the value of deadline
-     *
-     * @return the value of deadline
-     */
     public Date getDeadline() {
         return deadline;
     }
 
-    /**
-     * Set the value of deadline
-     *
-     * @param deadline new value of deadline
-     */
     public void setDeadline(Date deadline) {
         this.deadline = deadline;
     }
 
-
-    /**
-     * Get the value of description
-     *
-     * @return the value of description
-     */
     public String getDescription() {
         return description;
     }
 
-    /**
-     * Set the value of description
-     *
-     * @param description new value of description
-     */
     public void setDescription(String description) {
         this.description = description;
     }
 
-
-    /**
-     * Get the value of location
-     *
-     * @return the value of location
-     */
     public String getLocation() {
         return location;
     }
 
-    /**
-     * Set the value of location
-     *
-     * @param location new value of location
-     */
     public void setLocation(String location) {
         this.location = location;
     }
 
-
-    /**
-     * Get the value of date
-     *
-     * @return the value of date
-     */
     public Date getDate() {
         return date;
     }
 
-    /**
-     * Set the value of date
-     *
-     * @param date new value of date
-     */
     public void setDate(Date date) {
         this.date = date;
     }
 
-
-    /**
-     * Get the value of title
-     *
-     * @return the value of title
-     */
     public String getTitle() {
         return title;
     }
 
-    /**
-     * Set the value of title
-     *
-     * @param title new value of title
-     */
     public void setTitle(String title) {
         this.title = title;
     }
-
 
     public Long getId() {
         return id;

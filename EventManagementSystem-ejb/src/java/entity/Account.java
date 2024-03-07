@@ -66,91 +66,41 @@ public class Account implements Serializable {
         this.attendedEvents = attendedEvents;
     }
     
-    /**
-     * Get the value of organisedEvents
-     *
-     * @return the value of organisedEvents
-     */
     public List<Event> getOrganisedEvents() {
         return organisedEvents;
     }
 
-    /**
-     * Set the value of organisedEvents
-     *
-     * @param organisedEvents new value of organisedEvents
-     */
     public void setOrganisedEvents(List<Event> organisedEvents) {
         this.organisedEvents = organisedEvents;
     }
 
-
-    /**
-     * Set the value of password
-     *
-     * @param password new value of password
-     */
     public void setPassword(String password) {
         this.password = password;
     }
 
-
-    /**
-     * Get the value of email
-     *
-     * @return the value of email
-     */
     public String getEmail() {
         return email;
     }
 
-    /**
-     * Set the value of email
-     *
-     * @param email new value of email
-     */
     public void setEmail(String email) {
         this.email = email;
     }
 
-
-    /**
-     * Get the value of contactDetails
-     *
-     * @return the value of contactDetails
-     */
     public String getContactDetails() {
         return contactDetails;
     }
 
-    /**
-     * Set the value of contactDetails
-     *
-     * @param contactDetails new value of contactDetails
-     */
     public void setContactDetails(String contactDetails) {
         this.contactDetails = contactDetails;
     }
 
-
-    /**
-     * Get the value of name
-     *
-     * @return the value of name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * Set the value of name
-     *
-     * @param name new value of name
-     */
     public void setName(String name) {
         this.name = name;
     }
-
 
     public Long getId() {
         return id;

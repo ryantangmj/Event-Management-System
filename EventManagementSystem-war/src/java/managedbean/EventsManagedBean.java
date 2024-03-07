@@ -53,27 +53,8 @@ public class EventsManagedBean implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Future
     private Date deadline;
-    private Event selectedEvent;
-    
+    private Event selectedEvent;   
     private Long eventId;
-
-    /**
-     * Get the value of eventId
-     *
-     * @return the value of eventId
-     */
-    public Long getEventId() {
-        return eventId;
-    }
-
-    /**
-     * Set the value of eventId
-     *
-     * @param eventId new value of eventId
-     */
-    public void setEventId(Long eventId) {
-        this.eventId = eventId;
-    }
 
     private List<Account> participants = new ArrayList<Account>();
     private List<Account> attendees = new ArrayList<Account>();
@@ -91,6 +72,14 @@ public class EventsManagedBean implements Serializable {
         }
     }
 
+    public Long getEventId() {
+        return eventId;
+    }
+    
+    public void setEventId(Long eventId) {
+        this.eventId = eventId;
+    }
+    
     public List<Account> getParticipants() {
         return participants;
     }

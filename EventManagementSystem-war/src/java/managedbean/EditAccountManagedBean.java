@@ -40,6 +40,9 @@ public class EditAccountManagedBean implements Serializable {
     private byte[] fileContent;
     private long imageVersion = System.currentTimeMillis();
 
+    public EditAccountManagedBean() {
+    }
+    
     public long getImageVersion() {
         return imageVersion;
     }
@@ -130,12 +133,6 @@ public class EditAccountManagedBean implements Serializable {
 
     public void setFileContent(byte[] fileContent) {
         this.fileContent = fileContent;
-    }
-
-    /**
-     * Creates a new instance of EditAccountManagedBean
-     */
-    public EditAccountManagedBean() {
     }
 
     public void loadSelectedCustomer() {
