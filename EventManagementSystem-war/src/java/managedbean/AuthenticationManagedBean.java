@@ -60,8 +60,6 @@ public class AuthenticationManagedBean implements Serializable {
             userId = accountSession.getAccount(email, password);
             return "/pages/home.xhtml?faces-redirect=true";
         } else {
-            email = null;
-            password = null;
             userId = -1l;
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Your email or password is wrong"));
             return null;
