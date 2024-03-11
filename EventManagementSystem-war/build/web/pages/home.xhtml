@@ -13,7 +13,7 @@
         <h1>Welcome back, #{authenticationManagedBean.getName()}</h1><br />
         <subtitle>You can now register for events below.</subtitle>
         <h:form id="form">
-            <p:growl id="growl" showDetail="true" sticky="true"/>
+            <p:growl id="growl" showDetail="true" life="5000"/>
             <p:dataTable var="event"
                          value="#{eventsManagedBean.events}" widgetVar="eventsTable" rowKey="#{event.id}"
                          emptyMessage="No events found with given criteria" style="padding-top: 10px" multiViewState="true"

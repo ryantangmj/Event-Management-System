@@ -7,7 +7,9 @@
             <file>file:/Users/admin/Documents/GitHub/Event-Management-System/EventManagementSystem-war/src/java/managedbean/AuthenticationManagedBean.java</file>
             <file>file:/Users/admin/Documents/GitHub/Event-Management-System/EventManagementSystem-war/src/java/managedbean/EditAccountManagedBean.java</file>
             <file>file:/Users/admin/Documents/GitHub/Event-Management-System/EventManagementSystem-war/web/pages/attendance.xhtml</file>
+            <file>file:/Users/admin/Documents/GitHub/Event-Management-System/EventManagementSystem-war/web/pages/createEvent.xhtml</file>
             <file>file:/Users/admin/Documents/GitHub/Event-Management-System/EventManagementSystem-war/src/java/managedbean/EventsManagedBean.java</file>
+            <file>file:/Users/admin/Documents/GitHub/Event-Management-System/EventManagementSystem-war/src/java/filter/AuthenticationFilter.java</file>
             <file>file:/Users/admin/Documents/GitHub/Event-Management-System/EventManagementSystem-war/web/pages/profile.xhtml</file>
             <file>file:/Users/admin/Documents/GitHub/Event-Management-System/EventManagementSystem-war/src/java/managedbean/AccountManagedBean.java</file>
             <file>file:/Users/admin/Documents/GitHub/Event-Management-System/EventManagementSystem-war/web/pages/events.xhtml</file>

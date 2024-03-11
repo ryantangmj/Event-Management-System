@@ -151,13 +151,17 @@ public class EditAccountManagedBean implements Serializable {
         }
     }
 
-    public void editAccount() {
+    public void editAccount() throws IOException {
         FacesContext context = FacesContext.getCurrentInstance();
+        
+        if (uploadedfile != null) {
+             fileContent = toByteArray(uploadedfile.getInputStream());
+        }
+        account.setProfilePicContent(fileContent);
         account.setName(name);
         account.setContactDetails(contactDetails);
         account.setEmail(email);
         account.setPassword(password);
-        account.setProfilePicContent(fileContent);
 
         try {
             accountSession.updateAccount(account);
@@ -177,12 +181,4 @@ public class EditAccountManagedBean implements Serializable {
 
         return output.toByteArray();
     }
-
-    public void upload() throws IOException {
-        fileContent = toByteArray(uploadedfile.getInputStream());
-
-        account.setProfilePicContent(fileContent);
-        accountSession.updateAccount(account);
-    }
-
 }

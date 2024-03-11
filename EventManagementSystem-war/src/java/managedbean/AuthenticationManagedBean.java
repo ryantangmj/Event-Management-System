@@ -64,7 +64,7 @@ public class AuthenticationManagedBean implements Serializable {
             password = null;
             userId = -1l;
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Your email or password is wrong"));
-            return "index.xhtml";
+            return null;
         }
     }
 

@@ -18,7 +18,7 @@
         <h1>Edit Profile</h1><br />
         <subtitle>Edit account details here</subtitle>
         <h:form id="editProfile" style="margin-top: 8px;" enctype="multipart/form-data">       
-            <p:growl id="growl" showDetail="true" sticky="true"/>  
+            <p:growl id="growl" showDetail="true" life="5000"/>  
             <h:panelGrid id="details">
                 <h2>Profile Picture</h2>
                 <p:graphicImage style="width:500px; height:auto; position:relative; margin-top:1%;"
@@ -28,7 +28,7 @@
                     <f:param name="version" value="#{editAccountManagedBean.imageVersion}" />
                 </p:graphicImage>
                 <h:inputFile value="#{editAccountManagedBean.uploadedfile}" id="fileUpload" />
-                <h:commandButton value="Upload" action="#{editAccountManagedBean.upload}"/>
+<!--                <h:commandButton value="Upload" action=""/>-->
                 <h2>Name</h2>
                 <p:inputText id="name" style='width: 100%; margin-top: -5%; margin-bottom: -5%'
                              value="#{editAccountManagedBean.name}"
@@ -61,7 +61,8 @@
                              actionListener="#{editAccountManagedBean.editAccount}"
                              update="@form"
                              icon="pi pi-user-edit"
-                             style="font-size:16px; margin-top: 20px; background-color:#6f4d8e; color:white; text-shadow:none; text-align: center;
+                             style="font-size:16px; margin-top: 20px; margin-bottom: 2%; 
+                             background-color:#6f4d8e; color:white; text-shadow:none; text-align: center;
                              height:40px; float:right"/>
         </h:form>
     </ui:define>
