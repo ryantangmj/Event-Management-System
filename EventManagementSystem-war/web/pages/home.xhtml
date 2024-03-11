@@ -53,14 +53,14 @@
                     <h:outputText value="#{eventsManagedBean.selectedEvent.title}" style="margin-bottom:2px" />
                     <h:outputText value="Location:" />
                     <h:outputText value="#{eventsManagedBean.selectedEvent.location}" style="margin-bottom:2px"/>
-                    <h:outputText value="Date:" />
-                    <h:outputText value="#{eventsManagedBean.selectedEvent.date}" style="margin-bottom:2px">
-                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
-                    </h:outputText>
                     <h:outputText value="Registration deadline:" />
                     <h:outputText value="#{eventsManagedBean.selectedEvent.deadline}" style="margin-bottom:2px">
                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
                     </h:outputText>
+                    <h:outputText value="Date:" />
+                    <h:outputText value="#{eventsManagedBean.selectedEvent.date}" style="margin-bottom:2px">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
+                    </h:outputText> 
                     <h:outputText value="Description:" />
                     <h:outputText value="#{eventsManagedBean.selectedEvent.description}" style="margin-bottom:4px"/>
                     <p:commandButton value="Register" icon="pi pi-user-plus" ajax="false"

@@ -23,23 +23,16 @@
                              requiredMessage="Name is required."
                              /><br/>
                 <h2>Description</h2>
-                <p:inputTextarea rows="6" cols="33" id="description" style='width: 100%; margin-top: -5%; margin-bottom: -5%'
-                                 value="#{eventsManagedBean.description}"
-                                 required="true" 
-                                 requiredMessage="Description is required."/><br/>
-                <h2>Location</h2> 
+                <p:inputTextarea rows="6" cols="33" id="description" style='width: 100%; margin-top: -5%;'
+                                 counter="display" maxlength="255"
+                                 value="#{eventsManagedBean.description}"  
+                                 required="true" counterTemplate="{0} characters remaining."
+                                 requiredMessage="Description is required."/>
+                <h:outputText id="display"/><br/>
+                <h2 style='margin-top: -2%;'>Location</h2> 
                 <p:inputText id="location" style='width: 100%; margin-top: -5%; margin-bottom: -5%'
                              value="#{eventsManagedBean.location}" required="true" 
                              requiredMessage="Location is required."/><br/>
-                <h2>Date</h2> 
-                <p:datePicker monthNavigator="true" yearNavigator="true" showWeek="true" id="date"
-                              mindate="#{eventsManagedBean.currentDate}" showTime="true"
-                              style='margin-top: -5%; margin-bottom: -5%; width: 100%'
-                              value="#{eventsManagedBean.date}"
-                              required="true" 
-                              requiredMessage="Event date is required.">
-                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
-                </p:datePicker><br/>
                 <h2>Deadline</h2> 
                 <p:datePicker monthNavigator="true" yearNavigator="true" showWeek="true" id="deadline"
                               mindate="#{eventsManagedBean.currentDate}" showTime="true"
@@ -47,6 +40,15 @@
                               value="#{eventsManagedBean.deadline}"
                               required="true" 
                               requiredMessage="Deadline is required.">
+                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
+                </p:datePicker><br/>
+                <h2>Date</h2> 
+                <p:datePicker monthNavigator="true" yearNavigator="true" showWeek="true" id="date"
+                              mindate="#{eventsManagedBean.currentDate}" showTime="true"
+                              style='margin-top: -5%; margin-bottom: -5%; width: 100%'
+                              value="#{eventsManagedBean.date}"
+                              required="true" 
+                              requiredMessage="Event date is required.">
                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="Asia/Singapore"/>
                 </p:datePicker><br/>
             </h:panelGrid>

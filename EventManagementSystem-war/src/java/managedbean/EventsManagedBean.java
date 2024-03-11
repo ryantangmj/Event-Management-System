@@ -53,7 +53,7 @@ public class EventsManagedBean implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Future
     private Date deadline;
-    private Event selectedEvent;   
+    private Event selectedEvent;
     private Long eventId;
 
     private List<Account> participants = new ArrayList<Account>();
@@ -75,11 +75,11 @@ public class EventsManagedBean implements Serializable {
     public Long getEventId() {
         return eventId;
     }
-    
+
     public void setEventId(Long eventId) {
         this.eventId = eventId;
     }
-    
+
     public List<Account> getParticipants() {
         return participants;
     }
@@ -208,19 +208,24 @@ public class EventsManagedBean implements Serializable {
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Validation Error", "The deadline for registration must be before the event date"));
             return null;
         } else {
-            account = accountSession.getAccount(userId);
-            Event event = new Event();
-            event.setTitle(title);
-            event.setDate(date);
-            event.setLocation(location);
-            event.setDescription(description);
-            event.setDeadline(deadline);
-            event.setOrganiser(account);
+            try {
+                account = accountSession.getAccount(userId);
+                Event event = new Event();
+                event.setTitle(title);
+                event.setDate(date);
+                event.setLocation(location);
+                event.setDescription(description);
+                event.setDeadline(deadline);
+                event.setOrganiser(account);
 
-            eventSession.createEvent(account, event);
-            accountSession.addNewEvent(account, event);
-            organisedEvents = accountSession.getOrganisedEvents(userId);
-            return "events.xhtml?faces-redirect=true";
+                eventSession.createEvent(account, event);
+                accountSession.addNewEvent(account, event);
+                organisedEvents = accountSession.getOrganisedEvents(userId);
+                return "events.xhtml?faces-redirect=true";
+            } catch (Exception e) {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Number of characters for description exceeded 255 characters"));
+            }
+            return null;
         }
     }
 
@@ -255,7 +260,7 @@ public class EventsManagedBean implements Serializable {
     public void unregisterEvent(Event event, Long userId) {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
-            if (event.getDeadline().before(new Date())) {
+            if (event.getDate().before(new Date())) {
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Can't unregister, it is pass the event registration deadline"));
             } else {
                 account = accountSession.getAccount(userId);
@@ -287,7 +292,7 @@ public class EventsManagedBean implements Serializable {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to delete event"));
         }
     }
-    
+
     public void loadSelectedEvent() {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
@@ -299,7 +304,7 @@ public class EventsManagedBean implements Serializable {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to load event"));
         }
     }
-    
+
     public void updateAttendance() {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
