@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.servlet.http.Part;
 import session.AccountSessionLocal;
 
@@ -27,6 +28,8 @@ public class EditAccountManagedBean implements Serializable {
 
     @EJB
     private AccountSessionLocal accountSession;
+    @Inject
+    private AuthenticationManagedBean authenticationManagedBean;
 
     private Long accountId;
     private Account account;
@@ -154,7 +157,8 @@ public class EditAccountManagedBean implements Serializable {
     public void editAccount() throws IOException {
         FacesContext context = FacesContext.getCurrentInstance();
 
-        if (accountSession.sameEmail(email)) {
+        if (!authenticationManagedBean.getEmail().equals(email) && 
+                accountSession.sameEmail(email)) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "This email already has an account"));
         } else {
             if (uploadedfile != null) {
