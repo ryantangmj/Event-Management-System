@@ -42,7 +42,7 @@ public class EditAccountManagedBean implements Serializable {
 
     public EditAccountManagedBean() {
     }
-    
+
     public long getImageVersion() {
         return imageVersion;
     }
@@ -153,21 +153,25 @@ public class EditAccountManagedBean implements Serializable {
 
     public void editAccount() throws IOException {
         FacesContext context = FacesContext.getCurrentInstance();
-        
-        if (uploadedfile != null) {
-             fileContent = toByteArray(uploadedfile.getInputStream());
-        }
-        account.setProfilePicContent(fileContent);
-        account.setName(name);
-        account.setContactDetails(contactDetails);
-        account.setEmail(email);
-        account.setPassword(password);
 
-        try {
-            accountSession.updateAccount(account);
-            context.addMessage(null, new FacesMessage("Success", "Successfully updated details"));
-        } catch (Exception e) {
-            context.addMessage(null, new FacesMessage("Error", "Failed to update account details"));
+        if (accountSession.sameEmail(email)) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "This email already has an account"));
+        } else {
+            if (uploadedfile != null) {
+                fileContent = toByteArray(uploadedfile.getInputStream());
+            }
+            account.setProfilePicContent(fileContent);
+            account.setName(name);
+            account.setContactDetails(contactDetails);
+            account.setEmail(email);
+            account.setPassword(password);
+
+            try {
+                accountSession.updateAccount(account);
+                context.addMessage(null, new FacesMessage("Success", "Successfully updated details"));
+            } catch (Exception e) {
+                context.addMessage(null, new FacesMessage("Error", "Failed to update account details"));
+            }
         }
     }
 

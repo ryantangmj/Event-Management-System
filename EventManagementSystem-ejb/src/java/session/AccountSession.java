@@ -148,7 +148,7 @@ public class AccountSession implements AccountSessionLocal {
         try {
             Query q;
             q = em.createQuery("SELECT a FROM Account a WHERE LOWER(a.email) LIKE :email");
-            q.setParameter("email", email);
+            q.setParameter("email", email.toLowerCase());
             Account user = (Account) q.getSingleResult();
             return true;
         } catch (Exception e) {

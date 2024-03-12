@@ -229,7 +229,7 @@ public class AccountManagedBean implements Serializable {
         if (accountSession.sameEmail(email)) {
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "This email already has a registered account"));
-            return "createAccount.xhtml";
+            return null;
         }
         
         Account account = new Account();
